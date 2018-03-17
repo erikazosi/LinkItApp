@@ -26,33 +26,24 @@
                   </button>
                 </div>
                 <div class="col-6 text-right">
-                  <button type="button" class="btn btn-link px-0" data-toggle="modal" data-target="#exampleModal">Forgot password?</button>
+                  <button type="button" class="btn btn-link px-0" data-toggle="modal" (click)="openModal(template)">Forgot password?</button>
                   <!--modal-->
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary" >
-                    Launch demo modal
-                  </button>
-
-                  <!-- Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          ...
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                      </div>
+                  <ng-template #template>
+                    <div class="modal-header">
+                      <h4 class="modal-title pull-left">Reset Password</h4>
+                      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
-                  </div>
+                    <div class="modal-body">
+                      <p>If you have forgotten your password you can reset it here.</p>
+                        <input class="form-control input-lg" placeholder="E-mail Address"  [(ngModel)]="passwordResetEmail" name="email" type="text">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalRef.hide()">Close</button>
+                      <button type="button" class="btn btn-primary" (click)="forgetPassword(passwordResetEmail)">Send Reset Email</button>
+                    </div>
+                  </ng-template>
                   <!--modal end-->
                 </div>
               </div>

@@ -4,6 +4,7 @@ import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {AuthService} from './providers/authentication/auth.service';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 //firebases
@@ -93,7 +94,8 @@ import { ForgetPasswordComponent } from './views/modal/forget-password/forget-pa
     FormsModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    ModalModule.forRoot()
   ],
   declarations: [
     AppComponent,

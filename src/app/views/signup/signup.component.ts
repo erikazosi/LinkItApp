@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../providers/authentication/auth.service';
 import {Router} from '@angular/router';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-signup',
@@ -17,6 +18,10 @@ export class SignupComponent implements OnInit {
   errorMessage: String;
 
   constructor(public as: AuthService, public router: Router) {
+    var currentUser = firebase.auth().currentUser;
+    if(firebase.auth().currentUser) {
+      this.router.navigate(['dashboard']);
+    }
 
   }
 
