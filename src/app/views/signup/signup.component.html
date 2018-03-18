@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="app flex-row align-items-center">
   <div class="container">
     <div class="row justify-content-center">
@@ -42,6 +43,16 @@
             </div>
 
             <button type="button" (click)="signupWithEmail(email,password,repPassword,firstName,lastName)" class="btn btn-block btn-primary">Create Account</button>
+          </div>
+          <div class="card-footer p-4">
+            <div class="row">
+              <div class="col-6">
+                <button  (click)="signUpWithFacebook()" class="btn btn-block btn-facebook" type="button"><span>Sign Up With Facebook</span></button>
+              </div>
+              <div class="col-6">
+                <button (click)="signUpWithGmail()" class="btn btn-block btn-google-plus" type="button"><span>Sign Up With Google</span></button>
+              </div>
+            </div>
           </div>
 
         </div>

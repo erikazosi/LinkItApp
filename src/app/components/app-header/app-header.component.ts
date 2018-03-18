@@ -9,7 +9,13 @@ import {AuthService} from '../../providers/authentication/auth.service';
   templateUrl: './app-header.component.html'
 })
 export class AppHeaderComponent {
+  isLoggedIn:Boolean;
   constructor(public as: AuthService, public router: Router) {
+    this.isLoggedIn = false;
+    var currentUser = firebase.auth().currentUser;
+    if(currentUser) {
+      this.isLoggedIn = true;
+    }
   }
 
   logout() {

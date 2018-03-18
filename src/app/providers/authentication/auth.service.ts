@@ -1,11 +1,8 @@
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import {AngularFireDatabase} from 'angularfire2/database';
-import {AngularFireAuthProvider} from 'angularfire2/auth';
 
 // Import Observable
-import {Observable} from 'rxjs';
 
 
 @Injectable()
@@ -13,8 +10,7 @@ export class AuthService {
   warning: false;
   errorMessage: String;
 
-  constructor(public afAuth: AngularFireAuth,
-              public af: AngularFireDatabase) {
+  constructor(public afAuth: AngularFireAuth) {
   }
 
 
@@ -88,7 +84,8 @@ export class AuthService {
   }
 
   signup(email, password) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(function (result) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((res)=> {
+     res.sendEmailVerification();
       alert('Account created');
     });
 
