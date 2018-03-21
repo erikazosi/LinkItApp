@@ -16,6 +16,7 @@ import {UserService} from '../../model/user/user.service';
 export class SignupComponent implements OnInit {
   firstName: String;
   lastName: String;
+  currentUser = firebase.auth().currentUser;
 
 
   user: User = new User();
@@ -31,11 +32,11 @@ export class SignupComponent implements OnInit {
   errorMessage: String;
 
 
-  constructor(public as: AuthService, public router: Router, private userSvc: UserService) {
+  constructor(public as: AuthService, public router: Router) {
     //check whether user is logged in
     var currentUser = firebase.auth().currentUser;
     if (firebase.auth().currentUser) {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['']);
     }
 
   }
@@ -43,57 +44,20 @@ export class SignupComponent implements OnInit {
 
   signupWithEmail(email, password, repPassword, firstName, lastName) {
     if (password === repPassword) {
-      this.as.signup(email, password).then((result) => {
-
-      })
-        .catch(function (error) {
-          // Handle Errors here.
-          console.log(error);
-          var errorCode = error.code;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
-        });
-
-
+      this.as.signup(email, password);
     }
   }
 
-  addUserToDb(firstName, lastName) {
-    console.log('here');
-    var currentUser = firebase.auth().currentUser;
-    this.user.firstName = firstName;
-    this.user.lastName = lastName;
-    this.user.role = 'client';
-    this.user.uid = currentUser.uid;
-
-
-    this.userSvc.persistUser(this.user);
-  }
-
-
 
   signUpWithGmail() {
-    this.as.loginWithGoogle().then((res)=>{
-        this.router.navigate(['dashboard']);
-      var user = firebase.auth().currentUser;
-
-        this.addUserToDb(user.displayName, user.displayName);
-
-
+    this.as.loginWithGoogle().then((res) => {
+      this.router.navigate(['']);
     })
   }
 
   signUpWithFacebook() {
-    this.as.loginWithFacebook().then((res)=>{
-      this.router.navigate(['dashboard']);
-      var user = firebase.auth().currentUser;
-
-      this.addUserToDb(user.displayName, user.displayName);
-
-
+    this.as.loginWithFacebook().then((res) => {
+      this.router.navigate(['']);
     })
   }
 }

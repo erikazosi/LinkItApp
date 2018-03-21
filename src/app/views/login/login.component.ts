@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
     var currentUser = firebase.auth().currentUser;
     if(firebase.auth().currentUser) {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['']);
     }
 
     this.loginForm = new FormGroup({
@@ -46,7 +46,7 @@ this.modalRef.hide()}
   loginWithEmail(email, password) {
     this.as.loginWithEmail(email, password).then((res) => {
       // this.saveLocalStorage();
-      this.router.navigate(['dashboard'])
+      this.router.navigate([''])
     })
   }
 
@@ -54,14 +54,14 @@ this.modalRef.hide()}
   loginWithGmail() {
     this.as.loginWithGoogle().then((res) => {
 
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['']);
     });
 
   }
 
   loginWithFacebook() {
     this.as.loginWithFacebook().then((res) => {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['']);
 
     })
 

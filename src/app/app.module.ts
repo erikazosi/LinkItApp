@@ -4,7 +4,7 @@ import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {AuthService} from './providers/authentication/auth.service';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import {ModalModule} from 'ngx-bootstrap/modal';
 
 
 //firebases
@@ -80,7 +80,9 @@ import {LoginComponent} from './views/login/login.component';
 import {SignupComponent} from './views/signup/signup.component';
 import {environment} from '../environments/environment';
 import {AuthGuard} from './providers/authentication/auth.guard';
-import { ForgetPasswordComponent } from './views/modal/forget-password/forget-password.component';
+import {ForgetPasswordComponent} from './views/modal/forget-password/forget-password.component';
+import {UserService} from './model/user/user.service';
+
 
 
 @NgModule({
@@ -105,10 +107,10 @@ import { ForgetPasswordComponent } from './views/modal/forget-password/forget-pa
     LoginComponent,
     SignupComponent,
     PageNotFoundComponent,
-    ForgetPasswordComponent
-  ],
+    ForgetPasswordComponent],
   providers: [
     AuthService,
+    UserService,
     AuthGuard,
     {
       provide: LocationStrategy,

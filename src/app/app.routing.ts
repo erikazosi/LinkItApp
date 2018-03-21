@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import { ModuleWithProviders } from '@angular/core/src/metadata/ng_module';
+import {ModuleWithProviders} from '@angular/core/src/metadata/ng_module';
 
 // Import Containers
 import {
@@ -9,23 +9,33 @@ import {
 import {LoginComponent} from './views/login/login.component';
 import {PageNotFoundComponent} from './views/page-not-found/page-not-found.component';
 import {SignupComponent} from './views/signup/signup.component';
-import { AuthGuard } from './providers/authentication/auth.guard';
+import {AuthGuard} from './providers/authentication/auth.guard';
+import {UserComponent} from './views/users/user/user.component';
 
 
 export const appRoutes: Routes = [
-
-  {path: '',component: LoginComponent},
   {
-  path: 'dashboard',
+    path: '',
     component: FullLayoutComponent,
     data: {
       title: 'Home'
     },
+
+    children: [
+      {
+        path: 'user',
+        loadChildren: './views/users/users.module#UsersModule'
+      },
+      {
+        path: 'category',
+        loadChildren: 'app/views/category/category.module#CategoryModule'
+      }
+    ],
     canActivate: [AuthGuard]
   },
-  {path: 'login',component: LoginComponent},
-  {path: 'signup',component: SignupComponent},
-  {path: '**',component: PageNotFoundComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'signup', component: SignupComponent},
+  {path: '**', component: PageNotFoundComponent}
 ];
 
 export const ROUTING: ModuleWithProviders = RouterModule.forRoot(appRoutes);
