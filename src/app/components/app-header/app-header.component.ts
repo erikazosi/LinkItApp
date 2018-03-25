@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import * as firebase from 'firebase/app';
 import {Router} from '@angular/router';
 import {AuthService} from '../../providers/authentication/auth.service';
+import {UserService} from '../../model/user/user.service';
+
 // import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
 
 @Component({
@@ -9,11 +11,16 @@ import {AuthService} from '../../providers/authentication/auth.service';
   templateUrl: './app-header.component.html'
 })
 export class AppHeaderComponent {
-  isLoggedIn:Boolean;
-  constructor(public as: AuthService, public router: Router) {
+  isSetup: Boolean;
+  isLoggedIn: Boolean;
+
+  constructor(public as: AuthService, public router: Router, private userSevice: UserService) {
+    this.isSetup = this.userSevice.isSetup;
+    console.log(this.isSetup);
+
     this.isLoggedIn = false;
     var currentUser = firebase.auth().currentUser;
-    if(currentUser) {
+    if (currentUser) {
       this.isLoggedIn = true;
     }
   }
@@ -21,7 +28,7 @@ export class AppHeaderComponent {
   logout() {
     this.as.logout();
     this.router.navigate(['/login']);
-    }
+  }
 
   //
   //

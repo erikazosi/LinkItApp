@@ -11,6 +11,8 @@ import {PageNotFoundComponent} from './views/page-not-found/page-not-found.compo
 import {SignupComponent} from './views/signup/signup.component';
 import {AuthGuard} from './providers/authentication/auth.guard';
 import {UserComponent} from './views/users/user/user.component';
+import {SignUpProComponent} from './views/sign-up-pro/sign-up-pro.component';
+import {ProfileComponent} from './views/profile/profile.component';
 
 
 export const appRoutes: Routes = [
@@ -35,7 +37,9 @@ export const appRoutes: Routes = [
   },
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
-  {path: '**', component: PageNotFoundComponent}
+  {path: 'pro', component: SignUpProComponent},
+  {path:'profile/set-up/info', component:ProfileComponent},
+  {path: '**', component: PageNotFoundComponent},
 ];
 
 export const ROUTING: ModuleWithProviders = RouterModule.forRoot(appRoutes);

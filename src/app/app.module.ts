@@ -82,7 +82,13 @@ import {environment} from '../environments/environment';
 import {AuthGuard} from './providers/authentication/auth.guard';
 import {ForgetPasswordComponent} from './views/modal/forget-password/forget-password.component';
 import {UserService} from './model/user/user.service';
+import { SignUpProComponent } from './views/sign-up-pro/sign-up-pro.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import { ProfileComponent } from './views/profile/profile.component';
 
+
+
+import { StorageServiceModule} from 'angular-webstorage-service';
 
 
 @NgModule({
@@ -97,7 +103,9 @@ import {UserService} from './model/user/user.service';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ReactiveFormsModule,
+    StorageServiceModule
   ],
   declarations: [
     AppComponent,
@@ -107,7 +115,9 @@ import {UserService} from './model/user/user.service';
     LoginComponent,
     SignupComponent,
     PageNotFoundComponent,
-    ForgetPasswordComponent],
+    ForgetPasswordComponent,
+    SignUpProComponent,
+    ProfileComponent],
   providers: [
     AuthService,
     UserService,

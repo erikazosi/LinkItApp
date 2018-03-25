@@ -6,25 +6,25 @@
   <button *ngIf="isLoggedIn" class="navbar-toggler d-md-down-none mr-auto" type="button" appSidebarToggler>
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="navForClient" *ngIf="isLoggedIn">
+  <div class="navForClient" *ngIf="isLoggedIn && !isSetup">
 
     <div class="container">
       <div class="row">
         <!--<div class="nav-item d-md-down-none">-->
-          <!--<a class="nav-link" href="#"><i class="icon-globe"></i><span class="badge badge-pill badge-danger">Explore</span></a>-->
+        <!--<a class="nav-link" href="#"><i class="icon-globe"></i><span class="badge badge-pill badge-danger">Explore</span></a>-->
         <!--</div>-->
         <!--<div class="nav-item d-md-down-none">-->
-          <!--<a class="nav-link" href="#"><i class="icon-grid"></i><span class="badge badge-pill badge-danger">Projects</span></a>-->
+        <!--<a class="nav-link" href="#"><i class="icon-grid"></i><span class="badge badge-pill badge-danger">Projects</span></a>-->
         <!--</div>-->
         <!--<div class="nav-item d-md-down-none">-->
-          <!--<a class="nav-link" href="#"><i class="icon-envelope-letter"></i><span class="badge badge-pill badge-danger">Messages</span></a>-->
+        <!--<a class="nav-link" href="#"><i class="icon-envelope-letter"></i><span class="badge badge-pill badge-danger">Messages</span></a>-->
         <!--</div>-->
         <div class="col"><a href="#"> Explore </a><br></div>
         <div class="col"><a href="#"> Projects </a><br></div>
         <div class="col"><a href="#"> Messages </a><br></div>
         <div class="nav-item dropdown" dropdown placement="bottom right">
           <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                              aria-expanded="false" dropdownToggle (click)="false">
+             aria-expanded="false" dropdownToggle (click)="false">
             <img src="assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com"/>
           </a>
           <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
@@ -41,14 +41,23 @@
     </div>
   </div>
 
-  <div class="navForViewer" *ngIf="!isLoggedIn">
+  <div class="navForViewer" *ngIf="!isLoggedIn && !isSetup">
 
     <div class="container">
       <div class="row">
         <div class="col"><a href="#"> Explore </a><br></div>
-        <div class="col"><a href="#"> Join as a Pro </a><br></div>
+        <div class="col"><a href="#/pro"> Join as a Pro </a><br></div>
         <div class="col"><a href="#/signup"> Sign Up </a><br></div>
         <div class="col"><a href="#/login"> Login </a><br></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="navForSetup" *ngIf="isSetup">
+    <div class="container">
+      <div class="row">
+        <a class="dropdown-item" href="javascript:;" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>
+
       </div>
     </div>
   </div>
