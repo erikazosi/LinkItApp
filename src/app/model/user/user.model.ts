@@ -8,11 +8,10 @@ export class User{
   password: String;
   phone: String;
   dob: Date;
-  street: String;
   city: String;
-  zipCode: Number;
   country: String;
   category: String;
   role:String;
-  uid: string;
+  uid: String;
+  photoUrl: String;
 }

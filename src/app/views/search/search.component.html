@@ -1,0 +1,18 @@
+<div class="col-lg-6" style="position: fixed;top: 150px;left: 350px;">
+  <div class="input-group">
+    <input type="text" [(ngModel)]="searchWord"
+           style="height:50px;border-top-left-radius: 10px;border-bottom-left-radius: 10px;"
+           class="form-control" placeholder="Which Service are you look for..." aria-label="Search for...">
+    <span class="input-group-btn">
+            <button (click)="search()" class="btn btn-primary"
+                    style="height: 50px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;"
+                    type="button">
+              <i class="fa fa-search"></i> Search</button>
+    </span>
+
+  </div>
+
+
+</div>
+
+

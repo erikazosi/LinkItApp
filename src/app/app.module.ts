@@ -74,6 +74,7 @@ const APP_DIRECTIVES = [
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {ChartsModule} from 'ng2-charts/ng2-charts';
+import {CollapseModule} from 'ngx-bootstrap';
 
 //importing views
 import {LoginComponent} from './views/login/login.component';
@@ -82,13 +83,17 @@ import {environment} from '../environments/environment';
 import {AuthGuard} from './providers/authentication/auth.guard';
 import {ForgetPasswordComponent} from './views/modal/forget-password/forget-password.component';
 import {UserService} from './model/user/user.service';
-import { SignUpProComponent } from './views/sign-up-pro/sign-up-pro.component';
+import {SignUpProComponent} from './views/sign-up-pro/sign-up-pro.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import { ProfileComponent } from './views/profile/profile.component';
+import {StorageServiceModule} from 'angular-webstorage-service';
 
-
-
-import { StorageServiceModule} from 'angular-webstorage-service';
+import {CdashboardComponent} from './views/cdashboard/cdashboard.component';
+import {PdashboardComponent} from './views/pdashboard/pdashboard.component';
+import {ProjectsComponent} from './views/projects/projects.component';
+import {ProfileComponent} from './views/profile/profile.component';
+import {ExploreComponent} from './views/explore/explore.component';
+import {SearchComponent} from './views/search/search.component';
+import {SearchResultComponent} from './views/search-result/search-result.component';
 
 
 @NgModule({
@@ -105,7 +110,8 @@ import { StorageServiceModule} from 'angular-webstorage-service';
     AngularFireModule.initializeApp(environment.firebase),
     ModalModule.forRoot(),
     ReactiveFormsModule,
-    StorageServiceModule
+    StorageServiceModule,
+    CollapseModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -117,7 +123,13 @@ import { StorageServiceModule} from 'angular-webstorage-service';
     PageNotFoundComponent,
     ForgetPasswordComponent,
     SignUpProComponent,
-    ProfileComponent],
+    CdashboardComponent,
+    PdashboardComponent,
+    ProjectsComponent,
+    ProfileComponent,
+    ExploreComponent,
+    SearchComponent,
+    SearchResultComponent],
   providers: [
     AuthService,
     UserService,

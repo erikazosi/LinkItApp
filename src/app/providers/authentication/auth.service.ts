@@ -6,6 +6,8 @@ import {UserService} from '../../model/user/user.service';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {Router} from '@angular/router';
 
+import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
+
 // Import Observable
 
 
@@ -15,7 +17,8 @@ export class AuthService {
   errorMessage: String;
   currentUser = firebase.auth().currentUser;
   user: User = new User();
-
+  public userData: any = [];
+  found: String;
   userInfo: {
     email: String,
     password: String,
@@ -30,36 +33,47 @@ export class AuthService {
     role: String
   };
 
-  constructor(public afAuth: AngularFireAuth,@Inject(UserService) private userSvc: UserService,private db: AngularFireDatabase,private router:Router) {
+  constructor(public afAuth: AngularFireAuth,
+              @Inject(UserService) private userSvc: UserService,
+              private db: AngularFireDatabase,
+              private router: Router,
+              @Inject(LOCAL_STORAGE) private storage: WebStorageService) {
   }
 
-  addUserToDb(firstName, lastName,role) {
-    console.log('here');
+  saveToLocalStorage(key, val): void {
+    this.storage.set(key, val);
+    this.userData[key] = this.storage.get(key);
+  }
+
+  addUserToDb(email, password, role,firstName,lastName) {
     var currentUser = firebase.auth().currentUser;
     this.user.firstName = firstName;
     this.user.lastName = lastName;
     this.user.role = role;
     this.user.uid = currentUser.uid;
     this.user.email = currentUser.email;
+    this.user.photoUrl = currentUser.photoURL;
+    this.user.phone=currentUser.phoneNumber;
     this.userSvc.persistUser(this.user);
+    console.log('user persisted');
+
   }
 
   loginWithGoogle() {
-    return firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((res)=> {
+    return firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((res) => {
       // var token = result.credential.accessToken;
       // var user = result.user;
-
+        var user=firebase.auth().currentUser;
       // https://codereview.stackexchange.com/questions/97696/function-to-split-full-name-into-first-last
-
-   var found=this.userSvc.findUserByEmail(this.currentUser.email);
-
-      if(found ==null)
-      {
+       var userExist=this.userSvc.findUserByEmail(user.email);
+      console.log('userExist==>' + userExist.val().email);
+      if (userExist.val().email=='') {
         var nameArr = this.currentUser.displayName.split(/\s+/);
 
         var firstName = nameArr.slice(0, -1).join(' ');
         var lastName = nameArr.pop();
-        this.addUserToDb(firstName, lastName,'client');
+        this.addUserToDb('', '', 'client',firstName,lastName);
+
       }
 
     })
@@ -77,7 +91,7 @@ export class AuthService {
   }
 
   logout() {
-
+    this.storage.remove('role');
     return firebase.auth().signOut().then(function () {
       console.log('User Logged out');
     }).catch(function (error) {
@@ -89,15 +103,18 @@ export class AuthService {
 
   loginWithFacebook() {
     return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(function (result) {
-      var found=this.userSvc.findUserByEmail(this.currentUser.email);
+      var user=firebase.auth().currentUser;
 
-      if(found ==null)
-      {
+      var found= this.userSvc.findUserByEmail(user.email);
+
+      if (found.toString()) {
+        console.log(found.toString());
+      }else{
         var nameArr = this.currentUser.displayName.split(/\s+/);
 
         var firstName = nameArr.slice(0, -1).join(' ');
         var lastName = nameArr.pop();
-        this.addUserToDb(firstName, lastName,'client');
+        this.addUserToDb('', '', 'client',firstName,lastName);
       }
     }).catch(function (error) {
       // Handle Errors here.
@@ -125,18 +142,10 @@ export class AuthService {
     });
   }
 
-  signup(email, password,client) {
+  signup(email, password, client,firstName,lastName) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((res) => {
-      if(client=='client'){
-      this.addUserToDb(email, password,client);
-      }
-      else{
-        this.loginWithEmail(email, password).then((res)=> {
-          this.router.navigate(['dashboard']);
-          var currentUser = firebase.auth().currentUser;
-          this.addProToDb(currentUser);
-
-        })
+      if (client == 'client') {
+        this.addUserToDb(email, password, client,firstName,lastName);
       }
       // res.sendEmailVerification();
       alert('Account created');
@@ -151,28 +160,6 @@ export class AuthService {
       var credential = error.credential;
       // ...
     });
-
-  }
-
-  addProToDb(currentUser) {
-    const uList = this.db.list('user');
-
-    uList.push({
-        'firstName': this.user.firstName,
-        'lastName': this.user.lastName,
-        'email': this.user.email,
-        'phone': this.user.phone,
-        'dob': this.user.dob,
-        'street': this.user.street,
-        'city': this.user.city,
-        'zipCode': this.user.zipCode,
-        'country': this.user.country,
-        'category': this.user.category,
-        'role': 'pro',
-        'uid': currentUser.uid
-
-      }
-    );
 
   }
 

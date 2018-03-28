@@ -1,0 +1,40 @@
+<app-header></app-header>
+
+<div *ngFor="let info of searchResult" class="col-sm-6 col-md-4 position-relative" style="top:50px">
+  <div class="card">
+    <div class="card-body">
+      <div class="float-left border-right w-75">
+        <div>
+          <img width="100px" class="img-fluid rounded-circle float-left"
+               src="{{info.photoUrl}}" alt="user image">
+          <div class="position-relative" style="top:30px">
+            <b>    {{info.firstName}} {{info.lastName}}</b><br>
+            <p class="text-lg-center">Online Status</p>
+          </div>
+        </div>
+        <b> {{info.category}}</b> <br>
+        <i class="fa fa-gears"></i> {{info.city}}, Nepal<br>
+        <div class=""></div>
+      </div>
+      <div>
+      <button class="btn btn-primary" (click)="loadProfile(info._key)">  View Detail </button>
+      </div>
+    </div>
+    <div class="card-footer">
+
+      <button type="button" class="btn btn-primary"
+              (click)="isCollapsed = !isCollapsed">Rating and Reviews
+      </button>
+
+      <div
+        (expanded)="expanded($event)"
+        (collapsed)="collapsed($event)"
+
+        [collapse]="isCollapsed"
+        class="card card-block card-header">
+        <div class="well well-lg">Some content</div>
+      </div>
+    </div>
+  </div>
+</div><!--/.col-->
+

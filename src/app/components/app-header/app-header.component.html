@@ -1,24 +1,15 @@
-<header class="app-header navbar">
+<header class="app-header navbar ">
   <button class="navbar-toggler d-lg-none" type="button" appMobileSidebarToggler>
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" href="#"></a>
-  <button *ngIf="isLoggedIn" class="navbar-toggler d-md-down-none mr-auto" type="button" appSidebarToggler>
-    <span class="navbar-toggler-icon"></span>
+  <button *ngIf="isLoggedIn && isAdmin" class="navbar-toggler d-md-down-none mr-auto" type="button" appSidebarToggler>
+    <span *ngIf="isLoggedIn && isAdmin" class="navbar-toggler-icon"></span>
   </button>
-  <div class="navForClient" *ngIf="isLoggedIn && !isSetup">
+  <div class="navForClient d-flex" *ngIf="isLoggedIn && isAdmin">
 
-    <div class="container">
+    <div class="container ">
       <div class="row">
-        <!--<div class="nav-item d-md-down-none">-->
-        <!--<a class="nav-link" href="#"><i class="icon-globe"></i><span class="badge badge-pill badge-danger">Explore</span></a>-->
-        <!--</div>-->
-        <!--<div class="nav-item d-md-down-none">-->
-        <!--<a class="nav-link" href="#"><i class="icon-grid"></i><span class="badge badge-pill badge-danger">Projects</span></a>-->
-        <!--</div>-->
-        <!--<div class="nav-item d-md-down-none">-->
-        <!--<a class="nav-link" href="#"><i class="icon-envelope-letter"></i><span class="badge badge-pill badge-danger">Messages</span></a>-->
-        <!--</div>-->
         <div class="col"><a href="#"> Explore </a><br></div>
         <div class="col"><a href="#"> Projects </a><br></div>
         <div class="col"><a href="#"> Messages </a><br></div>
@@ -41,24 +32,44 @@
     </div>
   </div>
 
-  <div class="navForViewer" *ngIf="!isLoggedIn && !isSetup">
+  <div class="navForViewer d-flex" *ngIf="!isLoggedIn && !isSetup">
 
-    <div class="container">
+    <div class="container d-flex" style="font-weight: bold; font-size:15px">
       <div class="row">
-        <div class="col"><a href="#"> Explore </a><br></div>
-        <div class="col"><a href="#/pro"> Join as a Pro </a><br></div>
+        <div class="col"><a class="text-dark" href="#/explore"> <b>Explore </b></a><br></div>
+        <div class="col"><a href="#/proSignup"> Join as a Pro </a><br></div>
         <div class="col"><a href="#/signup"> Sign Up </a><br></div>
         <div class="col"><a href="#/login"> Login </a><br></div>
       </div>
     </div>
   </div>
 
-  <div class="navForSetup" *ngIf="isSetup">
+  <div class="navForViewer d-flex" *ngIf="isLoggedIn && isPro">
+
     <div class="container">
       <div class="row">
-        <a class="dropdown-item" href="javascript:;" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>
+        <div class="col"><a href="#"> Explore </a><br></div>
+        <div class="col"><a href="#/projects"> Projects </a><br></div>
+        <div class="col"><a href="/inbox"> Messages </a><br></div>
+        <div class="nav-item dropdown" dropdown placement="bottom right">
+          <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+             aria-expanded="false" dropdownToggle (click)="false">
+            <img src="{{photoUrl}}" class="img-avatar" alt="user image"/>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+            <div class="dropdown-header text-center"><strong>Settings</strong></div>
+            <a class="dropdown-item" href="#/profile"><i class="fa fa-user"></i> Profile</a>
+            <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>
+            <div class="divider"></div>
+            <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock account</a>
+            <a class="dropdown-item" href="javascript:;" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>
+          </div>
+        </div>
 
       </div>
     </div>
+
   </div>
+
+
 </header>

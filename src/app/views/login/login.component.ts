@@ -6,6 +6,7 @@ import {AuthService} from '../../providers/authentication/auth.service';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import {UserService} from '../../model/user/user.service';
+import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
 
 
 @Component({
@@ -22,7 +23,11 @@ export class LoginComponent implements OnInit {
   passwordResetEmail: String;
   currentUser = firebase.auth().currentUser;
 
-  constructor(public as: AuthService, public router: Router, private modalService: BsModalService, private userSvc: UserService) {
+  constructor(public as: AuthService,
+              public router: Router,
+              private modalService: BsModalService,
+              private userSvc: UserService,
+              @Inject(LOCAL_STORAGE) private storage: WebStorageService) {
 
 
     if (firebase.auth().currentUser) {
@@ -35,6 +40,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  saveToLocalStorage(key, val): void {
+    this.storage.set(key, val);
+    this.storage.get(key);
+  }
 
   ngOnInit() {
   }
@@ -59,14 +68,17 @@ export class LoginComponent implements OnInit {
 
   loginWithGmail() {
     this.as.loginWithGoogle().then((res) => {
-      this.navigateThruRole(this.currentUser.email);
+      var user = firebase.auth().currentUser;
+      this.navigateThruRole(user.email);
     });
 
   }
 
   loginWithFacebook() {
     this.as.loginWithFacebook().then((res) => {
-      this.navigateThruRole(this.currentUser.email);
+      var user = firebase.auth().currentUser;
+
+      this.navigateThruRole(user.email);
 
     })
 
@@ -77,22 +89,30 @@ export class LoginComponent implements OnInit {
     this.closeModal();
   }
 
-  navigateThruRole(email){
-    var checkRole = this.userSvc.checkUserRole(email);
+  navigateThruRole(email) {
+    var ref = this.userSvc.checkUserRole(email);
+    ref.on('child_added', (function (snap) {
+        var role = snap.val().role;
+      console.log(role);
+      if (role == 'client') {
+        this.storage.set('role', 'client');
 
+        this.router.navigate(['cDashboard']);
 
-    if (checkRole.toString() == 'client') {
-      this.router.navigate(['dashboard']);
+      }
+      else if (role == 'admin') {
+        this.storage.set('role', 'client');
 
-    }
-    else if(checkRole.toString()=='admin'){
-      this.router.navigate(['']);
+        this.router.navigate(['']);
 
-    }
-    else{
-      this.router.navigate(['profile/dashboard'])
+      }
+      else {
+        this.saveToLocalStorage('role', 'pro');
+        this.router.navigate(['dashboard'])
 
-    }
+      }
+    }).bind(this));
+
   }
 
 }

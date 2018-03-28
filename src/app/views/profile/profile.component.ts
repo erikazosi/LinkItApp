@@ -1,32 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-
+import * as firebase from 'firebase/app'
+import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  profileInfo;
-  constructor() { }
+
+      name:String;
+      location:String;
+      phone:String;
+      email:String;
+      photoUrl:String;
+  id: String;
+
+  sub: any;
+  constructor(private route: ActivatedRoute) {
+    var user=firebase.auth().currentUser;
+    this.name = user.displayName;
+    this.phone = user.phoneNumber;
+    this.location = user.email;
+    this.photoUrl = user.photoURL;
+  }
 
   ngOnInit() {
-    this.profileInfo = new FormGroup({
-      legalName: new FormControl("", Validators.required),
-      dob: new FormControl("",Validators.required),
-      street: new FormControl("",Validators.required),
-      city: new FormControl("",Validators.required),
-      zip: new FormControl("",Validators.required),
-      country: new FormControl("",Validators.required),
-
-    });
+    this.sub = this.route.params.subscribe(params => {
+      this.id = params['id'];
+    })
   }
-
-
-
-  onClickSubmit(data){
-
-  }
-
 
 }

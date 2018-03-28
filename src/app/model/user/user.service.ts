@@ -11,9 +11,14 @@ export class UserService {
   database = firebase.database();
   private basePath: string = 'user';
   isSetup: Boolean;
- query = firebase.database().ref('user');
-
+  userExist: Boolean;
+  query = firebase.database().ref('user');
+  searchResult = [];
+  tempSearchResult = [];
   userList: AngularFireList<any>;
+  user: User = new User();
+  searchWord: String;
+
 
   // user: Observable<User>;
 
@@ -29,25 +34,59 @@ export class UserService {
       lastName: user.lastName,
       role: user.role,
       uid: user.uid,
-      email: user.email
+      email: user.email,
+      phone: user.phone,
+      photoUrl: user.photoUrl
     });
 
 
   }
 
   findUserByEmail(email) {
-    //http://bighow.org/42130302-Check_if_user_exists_and_store_his_data_with_Firebase_Angular_Facebook.html
-    return this.query.orderByChild('email').equalTo(email).on('child_added', function(snap) {
-      // var person = snap.val();
-      // console.log(person.firstName, person.lastName);
-    });
+    var user;
+    this.userExist = false;
+    this.query.orderByChild('email').equalTo(email).on('child_added', function (snap) {
+      user = snap;
+    })
+    return user;
   }
 
   checkUserRole(email) {
-    return  this.query.orderByChild('email').equalTo(email).on('child_added',function(snap){
-      var user= snap.val();
-       return user.role;
-    })
+
+    return this.query.orderByChild('email').equalTo(email);
 
   }
+  getCurrentUserInfo(uid) {
+    return this.query.orderByChild('uid').equalTo(uid);
+  }
+  //
+  // findPro(category, finderAddress) {
+  //   this.query.orderByChild('category')
+  //     .equalTo(category)
+  //     .on('child_added', function (snap) {
+  //       var user = snap.val();
+  //       if (user.address == finderAddress) {
+  //         return this.searchResult.push(user);
+  //       }
+  //       else {
+  //         alert('no result');
+  //       }
+  //     }).bind(this);
+  // }
+
+
+
+  // setAllResult(results){
+  //   this.searchResult = results;
+  //
+  //   console.log("results in service");
+  //   console.log(this.searchResult);
+  //   this.getAllResult();
+  // }
+  //
+  // getAllResult(){
+  //   console.log('this is getter');
+  //   console.log(this.searchResult);
+  //   return this.searchResult;
+  // }
 }

@@ -1,0 +1,67 @@
+<app-header></app-header>
+<!--https://stackoverflow.com/questions/4620239/css-whats-a-good-way-to-create-a-raised-box-effect-->
+<div class="projectNav" style="width: 167px;
+    height: 340px;
+    position: FIXED;
+    top: 56px;
+    padding-left: 7px;
+    font-size: 17px;background-color: white; border:1px outset #999;
+    -webkit-box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+    -moz-box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+">
+<ul class="nav flex-column nav-responsive">
+  <li class="nav-item">
+    <a class="nav-link active" href="#/projects">All Projects</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#/projects/pending">Pending Projects</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link">My Schedules</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled">Disabled</a>
+  </li>
+</ul>
+</div>
+
+<div class="projectTable" style="background-color:white;width: 1075px;
+    position: fixed;
+    top: 102px;
+    left: 241px;
+    height: 440px;">
+<table class="table table-hover table-responsive">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Appointment Id</th>
+    <th>Client Id</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Queue Number</th>
+    <th>Appointment Date</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <th scope="row">1</th>
+    <td>Mark</td>
+    <td>Otto</td>
+    <td>@mdo</td>
+  </tr>
+  <tr>
+    <th scope="row">2</th>
+    <td>Jacob</td>
+    <td>Thornton</td>
+    <td>@fat</td>
+  </tr>
+  <tr>
+    <th scope="row">3</th>
+    <td colspan="2">Larry the Bird</td>
+    <td>@twitter</td>
+  </tr>
+  </tbody>
+</table>
+</div>

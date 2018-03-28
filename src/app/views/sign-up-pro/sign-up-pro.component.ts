@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../../providers/authentication/auth.service';
 import {UserService} from '../../model/user/user.service';
@@ -10,34 +10,94 @@ import {User} from '../../model/user/user.model';
 @Component({
   selector: 'app-sign-up-pro',
   templateUrl: './sign-up-pro.component.html',
-  styleUrls: ['./sign-up-pro.component.scss'],
+  styleUrls: ['./sign-up-pro.component.scss']
 })
 export class SignUpProComponent implements OnInit {
   user: User = new User();
 
-  addresses: Array<any>;
   repPassword: '';
-  cityList;
+  addressList = [];
+  address: String;
+  categories = [];
+  category: String;
+
   userList: AngularFireList<any>;
 
-  constructor(private as: AuthService, private db: AngularFireDatabase, private router: Router, private userService: UserService) {
-    // this.getAllAddress();
-
+  constructor(private as: AuthService,
+              private db: AngularFireDatabase,
+              private router: Router,
+              private userService: UserService) {
+    this.getAddress();
+    this.getCategories();
   }
 
   ngOnInit() {
+
     // this.getAllAddress();
+  }
+
+  getAddress() {
+    firebase.database().ref('address').on('child_added', (data) => {
+      data.val().forEach((res) => {
+        this.addressList.push(res.city);
+        //console.log(this.addressList);
+
+      });
+      this.addressList.sort();
+
+    });
+
+  }
+
+  getCategories() {
+    firebase.database().ref('Category').on('child_added', (data) => {
+      if (data.val().parentId != 0) {
+        data.forEach((res) => {
+          this.categories.push(data.val().name);
+          console.log('categories fetched>');
+
+          return true;
+        })
+      }
+    });
   }
 
   signupWithEmail(email, password, repPassword) {
     if (password === repPassword) {
-      this.as.signup(email, password, 'pro').then((res)=> {
+      this.as.signup(email, password, 'pro', '', '').then((res) => {
 
+        this.as.loginWithEmail(email, password).then((res) => {
+          this.router.navigate(['profile/dashboard']);
+          var currentUser = firebase.auth().currentUser;
+          this.addProToDb(currentUser);
+
+        })
 
       })
     } else {
       alert('password doesnt match')
     }
+  }
+
+
+  addProToDb(currentUser) {
+    const uList = this.db.list('user');
+
+    uList.push({
+        'firstName': this.user.firstName,
+        'lastName': this.user.lastName,
+        'email': this.user.email,
+        'phone': this.user.phone,
+        'dob': this.user.dob,
+        'category': this.user.category,
+        'country': 'Nepal',
+        'city': this.user.city,
+        'role': 'pro',
+        'uid': currentUser.uid
+
+      }
+    );
+
   }
 
 

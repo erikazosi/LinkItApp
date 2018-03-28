@@ -1,49 +1,35 @@
 <app-header></app-header>
-
-<div class="profileForm" style="position: fixed;
-    width: 745px;
-    top: 100px;
-    left: 500px;">
-    <div class="card">
-      <div class="card-header">
-        <strong>Profile</strong>
-        <small>Setup</small>
-      </div>
-      <form [formGroup] = "profileInfo" (ngSubmit) = "onClickSubmit(profileInfo.value)" >
-      <div class="card-body">
-
-        <label>Legal name</label>
-        <input type="text" class="form-control" formControlName="legalName" placeholder="Enter your legal name">
-
-
-      <label>Date of Birth</label>
-      <input type="text" class="form-control" formControlName="dob" placeholder="MM-DD-YYYY">
-
-    <label>Street</label>
-    <input type="text" class="form-control" formControlName="street" placeholder="Enter street name">
-
-  <div class="row">
-    <div class="form-group col-sm-8">
-      <label>City</label>
-      <input type="text" class="form-control" formControlName="city" placeholder="Enter your city">
+<div class="profileContainer border border-primary" style="   width: 800px;
+    background-color: white;
+    height: 650px;
+    position: fixed;
+    left: 350px;
+    top: 67px;">
+  <div class="card">
+    <div class="card-header" style="background-color: #d9edf7">
+      User Detail
     </div>
-    <div class="form-group col-sm-4">
-      <label >Zip Code</label>
-      <input type="text" class="form-control" formControlName="zip-code" placeholder="Postal Code">
-    </div>
-  </div><!--/.row-->
+    <div class="card-body" style="height:602px;">
 
-  <label >Country</label>
-  <input type="text" class="form-control" formControlName="country" placeholder="Country name">
+      <div class="panelImage float-left w-25 h-25"
+           style="border-color:#807070;border-right-style: solid; border-bottom-style: solid">
+        <img width="100px" class="img-fluid rounded-circle" style="position:fixed; top:155px;  left:400px;"
+             src="{{photoUrl}}" alt="user image">
 
       </div>
-  <p>Please make sure all the information you entered <br> is accurate before submitting.
-  </p>
 
-  <button class="btn btn-primary" [disabled] = "!profileInfo.valid" >Submit</button>
-</form>
+      <div class="panelImage w-100 h-25" style="border-color:#807070; border-bottom-style: solid ">
+        <div class="info" style="    width: 410px;
+    height: 100px;
+    position: fixed;
+    left: 600px;
+    top: 120px;">
+          <i class="icon-user icons font-2xl d-block mt-4"> {{name}}</i>
+          <i class="icon-location-pin icons font-2xl d-block mt-4"> {{location}} </i>
+          <i class="icon-phone icons font-2xl d-block mt-4">{{phone}} </i>
+        </div>
+      </div>
     </div>
-
+  </div>
 
 </div>
-

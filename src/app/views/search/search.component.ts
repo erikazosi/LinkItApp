@@ -1,0 +1,86 @@
+import {Component, Inject, OnInit} from '@angular/core';
+// import {Subject} from 'rxjs/Subject';
+import * as firebase from 'firebase/app';
+import {UserService} from '../../model/user/user.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {SearchResultComponent} from '../search-result/search-result.component';
+import {Input} from '@angular/core';
+
+
+@Component({
+  selector: 'app-search',
+  templateUrl: 'search.component.html',
+  styleUrls: ['./search.component.scss'],
+  providers: [UserService]
+
+})
+export class SearchComponent implements OnInit {
+
+  searchWord: String;
+  searchResult = [];
+
+  constructor(@Inject(UserService) private userSvc: UserService, private router: Router) {
+  }
+
+  ngOnInit() {
+  }
+
+  search() {
+    this.router.navigate(['searchResult',this.searchWord]);
+  }
+
+// }
+//   findPro() {
+//     var user = firebase.auth().currentUser;
+//     if (user) {
+//       this.userSvc.getCurrentUserInfo(user.uid).on('child_added', (function (snap) {
+//
+//         if (snap.val().address == '') {
+//           this.findProWOAddress(this.searchWord);
+//         }
+//         else {
+//           this.findProf(this.searchWord, snap.val().address);
+//           this.router.navigate(['searchResult']);
+//         }
+//
+//
+//       }).bind(this))
+//     }
+//     else {
+//       var data = this.findProWOAddress(this.searchWord);
+//       this.searchResult.push(data);
+//       this.userSvc.setAllResult(this.searchResult);
+//       // this.searchRes.getResult(this.searchResult);
+//       this.router.navigate(['searchResult']);
+//
+//     }
+//   }
+//
+//   findProf(category, finderAddress) {
+//     firebase.database().ref('user').orderByChild('category')
+//       .equalTo(category)
+//       .on('child_added', function (snap) {
+//         var user = snap.val();
+//         if (user.address == finderAddress) {
+//           return this.searchResult.push(user);
+//         }
+//         else {
+//           alert('no result');
+//         }
+//       }).bind(this);
+//   }
+//
+//
+//   findProWOAddress(category) {
+//     firebase.database().ref('user').orderByChild('category')
+//       .equalTo(category)
+//       .on('value').then(function (snap) {
+//       return snap.val();
+//
+//
+//     })
+//
+//   }
+
+
+}

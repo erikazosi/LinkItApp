@@ -34,7 +34,6 @@
     "firebase": "^4.11.0",
     "flag-icon-css": "2.9.0",
     "font-awesome": "^4.7.0",
-    "google-maps": "^3.2.1",
     "install": "^0.10.4",
     "moment": "2.20.1",
     "ng2-charts": "1.6.0",

@@ -42,9 +42,11 @@ export class SignupComponent implements OnInit {
   }
 
 
-  signupWithEmail(email, password, repPassword) {
+  signupWithEmail(email, password, repPassword,firstName,lastName) {
     if (password === repPassword) {
-      this.as.signup(email, password,'client');
+      this.as.signup(email, password,'client',firstName,lastName);
+      this.as.loginWithEmail(email, password);
+      this.router.navigate(['dashboard']);
     }
   }
 
