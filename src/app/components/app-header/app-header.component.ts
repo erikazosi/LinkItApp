@@ -13,41 +13,91 @@ import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
 export class AppHeaderComponent {
   isSetup: Boolean;
   isLoggedIn: Boolean;
-  role:String;
-isPro: Boolean;
-isClient:Boolean;
-isAdmin:Boolean;
+  role: String;
+  isPro: Boolean;
+  isClient: Boolean;
+  isAdmin: Boolean;
   photoUrl: String;
-  constructor(public as: AuthService, public router: Router, private userSevice: UserService,  @Inject(LOCAL_STORAGE) private storage: WebStorageService) {
-    this.isSetup = this.userSevice.isSetup;
+  loginStatus: String;
+  newProjects: Number;
+  count = 0;
+  countMsg = 0;
+  newMsg: Number;
+  currentUser: any;
 
-    this.isLoggedIn = false;
-    this.isPro=false;
+
+  constructor(public as: AuthService, public router: Router, private userSevice: UserService, @Inject(LOCAL_STORAGE) private storage: WebStorageService) {
+    this.currentUser = this.storage.get('firebase:authUser:AIzaSyA5H7eILXvGENn7Vf3sFnJTevTgRUen2lo:[DEFAULT]');
+
+    this.isSetup = this.userSevice.isSetup;
+    this.isPro = false;
     this.isClient = false;
     this.isAdmin = false;
-    var currentUser = firebase.auth().currentUser;
-    if (currentUser) {
-      this.isLoggedIn = true;
-      this.photoUrl = currentUser.photoURL;
+
+    this.loginStatus = this.storage.get('isLoggedIn');
+    if (this.loginStatus == 'true') {
+      this.isLoggedIn = true
+    }
+    if (this.currentUser) {
+      this.photoUrl = this.currentUser.photoURL;
     }
 
-    this.role=this.storage.get("role");
-    if(this.role=="pro")
-    {
-      this.isPro=true;
+    this.role = this.storage.get('role');
+    if (this.role == 'pro') {
+      this.countNewProjects();
+
+      this.isPro = true;
     }
-    else if(this.role=="client")
-    {
+    else if (this.role == 'client') {
       this.isClient = true;
-    }else{
+    } else {
       this.isAdmin = true;
     }
 
   }
 
+  ngOnInit() {
+    this.countNewMessage();
+  }
+
   logout() {
     this.as.logout();
     this.router.navigate(['/login']);
+  }
+
+  countNewProjects() {
+    var current = this.storage.get('firebase:authUser:AIzaSyA5H7eILXvGENn7Vf3sFnJTevTgRUen2lo:[DEFAULT]');
+    firebase.database().ref('projects/').orderByChild('appointmentFor')
+      .equalTo(current.uid).on('child_added', (function (snap) {
+      var data = snap.val();
+
+      if (data.notificationStatus == 'new') {
+
+        this.count++;
+
+      }
+      this.newProjects = this.count;
+
+    }).bind(this));
+  }
+
+  countNewMessage() {
+    var ref = this.userSevice.getCurrentUserInfo(this.currentUser.uid);
+    ref.once('child_added').then((snap) => {
+      firebase.database().ref('messages/').orderByChild('receiver')
+        .equalTo(snap.key).on('child_added', (function (val) {
+        var data = val.val();
+
+        if (data.status == 'unread') {
+
+          this.countMsg++;
+
+        }
+        this.newMsg = this.countMsg;
+
+      }).bind(this));
+    })
+
   }
 
 }

@@ -27,7 +27,9 @@
                   </button>
                 </div>
                 <div class="col-6 text-right">
-                  <button type="button" class="btn btn-link px-0" data-toggle="modal" (click)="openModal(template)">Forgot password?</button>
+                  <button type="button" class="btn btn-link px-0" data-toggle="modal" (click)="openModal(template)">
+                    Forgot password?
+                  </button>
                   <!--modal-->
                   <ng-template #template>
                     <div class="modal-header">
@@ -38,11 +40,16 @@
                     </div>
                     <div class="modal-body">
                       <p>If you have forgotten your password you can reset it here.</p>
-                        <input class="form-control input-lg" placeholder="E-mail Address"  [(ngModel)]="passwordResetEmail" name="email" type="text">
+                      <input class="form-control input-lg" placeholder="E-mail Address" [(ngModel)]="passwordResetEmail"
+                             name="email" type="text">
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalRef.hide()">Close</button>
-                      <button type="button" class="btn btn-primary" (click)="forgetPassword(passwordResetEmail)">Send Reset Email</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalRef.hide()">
+                        Close
+                      </button>
+                      <button type="button" class="btn btn-primary" (click)="forgetPassword(passwordResetEmail)">Send
+                        Reset Email
+                      </button>
                     </div>
                   </ng-template>
                   <!--modal end-->
@@ -50,15 +57,17 @@
               </div>
               <br>
               <p class="text-muted"> Just sign in with:</p>
-                <div class="row">
-                  <div class="col-6">
-                    <button (click)="loginWithFacebook()" class="btn btn-block btn-facebook" type="button"><span>Facebook</span></button>
-                  </div>
-                  <div class="col-6">
-                    <button (click)="loginWithGmail()" class="btn btn-block btn-google-plus" type="button"><span> Google</span>
-                    </button>
-                  </div>
+              <div class="row">
+                <div class="col-6">
+                  <button (click)="loginWithFacebook()" class="btn btn-block btn-facebook" type="button">
+                    <span>Facebook</span></button>
                 </div>
+                <div class="col-6">
+                  <button (click)="loginWithGmail()" class="btn btn-block btn-google-plus" type="button">
+                    <span> Google</span>
+                  </button>
+                </div>
+              </div>
 
             </div>
           </div>

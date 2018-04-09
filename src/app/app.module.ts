@@ -7,6 +7,7 @@ import {AuthService} from './providers/authentication/auth.service';
 import {ModalModule} from 'ngx-bootstrap/modal';
 
 
+
 //firebases
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireAuthModule} from 'angularfire2/auth';
@@ -81,7 +82,6 @@ import {LoginComponent} from './views/login/login.component';
 import {SignupComponent} from './views/signup/signup.component';
 import {environment} from '../environments/environment';
 import {AuthGuard} from './providers/authentication/auth.guard';
-import {ForgetPasswordComponent} from './views/modal/forget-password/forget-password.component';
 import {UserService} from './model/user/user.service';
 import {SignUpProComponent} from './views/sign-up-pro/sign-up-pro.component';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -94,6 +94,13 @@ import {ProfileComponent} from './views/profile/profile.component';
 import {ExploreComponent} from './views/explore/explore.component';
 import {SearchComponent} from './views/search/search.component';
 import {SearchResultComponent} from './views/search-result/search-result.component';
+import { InboxComponent } from './views/inbox/inbox.component';
+import { SpinnerComponent } from './ui/spinner/spinner.component';
+import { MyProfileComponent } from './views/my-profile/my-profile.component';
+import { ProjectNavComponent } from './views/project-nav/project-nav.component';
+import { MyProjectsComponent } from './views/my-projects/my-projects.component';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { UserStatusComponent } from './views/user-status/user-status.component';
 
 
 @NgModule({
@@ -111,7 +118,9 @@ import {SearchResultComponent} from './views/search-result/search-result.compone
     ModalModule.forRoot(),
     ReactiveFormsModule,
     StorageServiceModule,
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    AngularFireStorageModule,
+
   ],
   declarations: [
     AppComponent,
@@ -121,7 +130,6 @@ import {SearchResultComponent} from './views/search-result/search-result.compone
     LoginComponent,
     SignupComponent,
     PageNotFoundComponent,
-    ForgetPasswordComponent,
     SignUpProComponent,
     CdashboardComponent,
     PdashboardComponent,
@@ -129,7 +137,13 @@ import {SearchResultComponent} from './views/search-result/search-result.compone
     ProfileComponent,
     ExploreComponent,
     SearchComponent,
-    SearchResultComponent],
+    SearchResultComponent,
+    InboxComponent,
+    SpinnerComponent,
+    MyProfileComponent,
+    ProjectNavComponent,
+    MyProjectsComponent,
+    UserStatusComponent],
   providers: [
     AuthService,
     UserService,

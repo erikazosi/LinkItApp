@@ -1,0 +1,13 @@
+<span [ngSwitch]="status">
+
+  <span *ngSwitchCase="'online'" class="help is-success">
+    Online <i class="fa  fa-circle"></i>
+  </span>
+  <span *ngSwitchCase="'offline'" class="help is-danger">
+    Offline <i class="fa  fa-circle"></i>
+  </span>
+
+  <span *ngSwitchDefault class="help">
+    Unknown <i class="fa fa-circle"></i>
+  </span>
+</span>

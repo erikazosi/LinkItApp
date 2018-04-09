@@ -24,8 +24,9 @@ export class SearchResultComponent implements OnInit {
   private basePath: string = 'user';
   query = firebase.database().ref('user');
   private sub: any;
+  loadSpinner: boolean = true;
 
-  constructor(@Inject(UserService) private userSvc: UserService, private route: ActivatedRoute,private router:Router) {
+  constructor(@Inject(UserService) private userSvc: UserService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -75,8 +76,10 @@ export class SearchResultComponent implements OnInit {
       .startAt(category)
       .on('child_added', function (snap) {
         var user = snap.val();
-        if (user.address == finderAddress) {
-          this.searchResult.push(user);
+        if (user.address) {
+          if (user.address == finderAddress)
+            this.searchResult.push(user);
+          this.loadSpinner = false;
 
         }
         else {
@@ -90,9 +93,9 @@ export class SearchResultComponent implements OnInit {
     this.query.orderByChild('category')
       .equalTo(category)
       .on('child_added', (function (snap) {
-        this.searchResult.push({_key:snap.key,...snap.val()});
+        this.searchResult.push({_key: snap.key, ...snap.val()});
+        this.loadSpinner = false;
 
-        console.log(this.searchResult);
 
       }).bind(this));
 

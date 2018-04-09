@@ -92,22 +92,23 @@ export class LoginComponent implements OnInit {
   navigateThruRole(email) {
     var ref = this.userSvc.checkUserRole(email);
     ref.on('child_added', (function (snap) {
-        var role = snap.val().role;
+      var role = snap.val().role;
       console.log(role);
       if (role == 'client') {
         this.storage.set('role', 'client');
-
+        this.storage.set('isLoggedIn', 'true');
         this.router.navigate(['cDashboard']);
 
       }
       else if (role == 'admin') {
         this.storage.set('role', 'client');
-
+        this.storage.set('isLoggedIn', 'true');
         this.router.navigate(['']);
 
       }
       else {
         this.saveToLocalStorage('role', 'pro');
+        this.storage.set('isLoggedIn', 'true');
         this.router.navigate(['dashboard'])
 
       }

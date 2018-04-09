@@ -18,28 +18,31 @@ import {ProjectsComponent} from './views/projects/projects.component';
 import {ProfileComponent} from './views/profile/profile.component';
 import {ExploreComponent} from './views/explore/explore.component';
 import {SearchResultComponent} from './views/search-result/search-result.component';
+import {InboxComponent} from './views/inbox/inbox.component';
+import {MyProfileComponent} from './views/my-profile/my-profile.component';
+import {MyProjectsComponent} from './views/my-projects/my-projects.component';
 
 
 export const appRoutes: Routes = [
-  {
-    path: '',
-    component: FullLayoutComponent,
-    data: {
-      title: 'Home'
-    },
-
-    children: [
-      {
-        path: 'user',
-        loadChildren: './views/users/users.module#UsersModule'
-      },
-      {
-        path: 'category',
-        loadChildren: 'app/views/category/category.module#CategoryModule'
-      }
-    ],
-    canActivate: [AuthGuard]
-  },
+  // {
+  //   path: '',
+  //   component: FullLayoutComponent,
+  //   data: {
+  //     title: 'Home'
+  //   },
+  //
+  //   children: [
+  //     {
+  //       path: 'user',
+  //       loadChildren: './views/users/users.module#UsersModule'
+  //     },
+  //     {
+  //       path: 'category',
+  //       loadChildren: 'app/views/category/category.module#CategoryModule'
+  //     }
+  //   ],
+  //   canActivate: [AuthGuard]
+  // },
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'proSignup', component: SignUpProComponent},
@@ -50,9 +53,13 @@ export const appRoutes: Routes = [
     path: 'cDashboard', component: CdashboardComponent, canActivate: [AuthGuard]
   },
   {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]},
+  {path: 'inbox', component: InboxComponent, canActivate: [AuthGuard]},
   {path: 'profile/:id', component: ProfileComponent},
+  {path: '', component: ExploreComponent},
   {path: 'explore', component: ExploreComponent},
   {path: 'searchResult/:category', component: SearchResultComponent},
+  {path: 'myProfile', component: MyProfileComponent},
+  {path: 'myProjects', component: MyProjectsComponent},
   {path: '**', component: PageNotFoundComponent}
 
 ];

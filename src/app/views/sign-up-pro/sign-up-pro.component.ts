@@ -6,7 +6,6 @@ import * as firebase from 'firebase/app';
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import {User} from '../../model/user/user.model';
 
-
 @Component({
   selector: 'app-sign-up-pro',
   templateUrl: './sign-up-pro.component.html',
@@ -96,7 +95,41 @@ export class SignUpProComponent implements OnInit {
         'uid': currentUser.uid
 
       }
-    );
+    ).then((res) => {
+
+      firebase.database().ref('schedule/' + currentUser.uid).set({
+        'Sunday': {
+          'from': '10:00',
+          'to': '5:00'
+        },
+        'Monday': {
+          'from': '10:00',
+          'to': '5:00'
+        },
+        'Tuesday': {
+          'from': '10:00',
+          'to': '5:00'
+        },
+        'Wednesday': {
+          'from': '10:00',
+          'to': '5:00'
+        },
+        'Thursday': {
+          'from': '10:00',
+          'to': '5:00'
+        },
+        'Friday': {
+          'from': '10:00',
+          'to': '5:00'
+        },
+        'Saturday': {
+          'from': '10:00',
+          'to': '5:00'
+        }
+        //some more user data
+      });
+
+    });
 
   }
 

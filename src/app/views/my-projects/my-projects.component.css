@@ -1,0 +1,41 @@
+.projectNav{
+  width: 400px;
+  height: 415px;
+  position: absolute;
+  top: 55px;
+  padding-left: 7px;
+  border-right: 1px solid #ebedee;
+  font-size: 17px;
+  /*border:1px outset #999;*/
+  /*-webkit-box-shadow: 5px 5px 15px rgba(0,0,0,0.4);*/
+  /*-moz-box-shadow: 5px 5px 15px rgba(0,0,0,0.4);*/
+}
+
+.nav-item{
+  background-color: white;
+  border-bottom: 1px solid #ebedee;
+  border-top: 1px solid #ebedee;
+}
+
+
+
+.angle1{
+  padding-left: 266px;
+
+}
+.angle2{
+  padding-left: 228px;
+
+}
+.angle3{
+  padding-left: 245px;
+
+}
+.projectTable{
+  background-color: white;
+  width: 655px;
+  position: fixed;
+  top: 102px;
+  left: 600px;
+  height: 440px;
+}

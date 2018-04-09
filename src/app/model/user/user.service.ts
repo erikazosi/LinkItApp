@@ -45,10 +45,7 @@ export class UserService {
   findUserByEmail(email) {
     var user;
     this.userExist = false;
-    this.query.orderByChild('email').equalTo(email).on('child_added', function (snap) {
-      user = snap;
-    })
-    return user;
+    return this.query.orderByChild('email').equalTo(email);
   }
 
   checkUserRole(email) {
@@ -58,6 +55,9 @@ export class UserService {
   }
   getCurrentUserInfo(uid) {
     return this.query.orderByChild('uid').equalTo(uid);
+  }
+  fetchUserDataByKey(key){
+    return this.query.orderByValue();
   }
   //
   // findPro(category, finderAddress) {

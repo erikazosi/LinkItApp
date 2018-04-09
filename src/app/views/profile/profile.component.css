@@ -1,0 +1,118 @@
+.star-rating {
+  font-size: 0;
+}
+
+.star-rating__wrap {
+  display: inline-block;
+  font-size: 1rem;
+}
+
+.star-rating__wrap:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.star-rating__ico {
+  float: right;
+  padding-left: 2px;
+  cursor: pointer;
+  color: #FFB300;
+}
+
+.star-rating__ico:last-child {
+  padding-left: 0;
+}
+
+.star-rating__input {
+  display: none;
+}
+
+.star-rating__ico:hover:before,
+.star-rating__ico:hover ~ .star-rating__ico:before,
+.star-rating__input:checked ~ .star-rating__ico:before {
+  content: "\f005";
+}
+
+.about {
+  top: 14px;
+  color: #9aacb2
+}
+
+.profileHead {
+  position: relative;
+  width: 550px;
+  left: 465px;
+  top: 40px;
+}
+
+.info {
+  position: relative;
+  left: 142px;
+  top: 20px;
+
+}
+
+.profileBody {
+  left: 465px;
+  top: 45px;
+  border-bottom-style: solid;
+  border-top-style: solid;
+  border-color: #f3f6f7;
+  width: 460px;
+  padding-bottom: 70px;
+}
+
+.sideBox {
+  border: solid #f3f6f7;
+  height: 338px;
+  width: 230px;
+  position: relative;
+  top: -298px;
+  border-radius: 12px;
+  left: 955px;
+  padding: 25px;
+  }
+
+.rev {
+  top: 80px;
+  left: -98px;
+}
+
+.reviewRating {
+  position: relative;
+  bottom: 274px;
+  left: 468px;
+  width: 455px;
+}
+
+.commentBox {
+  width: 298px;
+  border: none;
+  margin-right: 20px;
+  height: 23px;
+  border-bottom: 1px solid;
+  border-bottom-color: #a5b1b5;
+}
+
+.textarea {
+  resize: none;
+}
+
+.appointmentBtn {
+  right: 94px;
+  position: relative;
+  top: 95px;
+}
+
+.contactBtn {
+  position: relative;
+  top: 60px;
+  left: 150px;
+}
+
+span {
+  color: #00000073;
+
+}
+

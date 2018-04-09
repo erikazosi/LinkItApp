@@ -1,0 +1,55 @@
+<app-header></app-header>
+<div class="profileContainer">
+  <div class="msgBox" style="    position: relative;
+    top: 75px;
+        left: 66px;
+    width: 1090px;">
+    <div class="msgList">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-comments"></i> Messages
+        </div>
+        <div class="card-body" style="height: 500px;width:1025px;">
+          <app-spinner *ngIf="loadSpinner"></app-spinner>
+          <ul class="list-group">
+            <li *ngFor="let msg of msgList" data-toggle="modal"
+                (click)="openModal(template,msg._key,msg.sender)"
+                [(ngModel)]="msg.status"
+                class="list-group-item d-flex list-group-item-action
+                 justify-content-between align-items-center"
+                ngClass="{'list-group-item-primary':unread}"
+
+            >
+              <b>{{msg.title}} </b> {{msg.time|date}}<br>
+              Status: {{msg.status}}
+
+              <ng-template #template>
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left">Send Message</h4>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p><b>From:</b> {{senderName}}</p>
+                  <p><b>Title:</b> {{msg.title}}</p>
+                  <p>{{msg.message}}</p>
+                  <textarea [(ngModel)]="reply" class="form-control" placeholder="Write your reply here..">
+                </textarea></div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalRef.hide()">Close
+                  </button>
+                  <button type="button" class="btn btn-primary" (click)="replyMsg(msg)">Reply</button>
+                </div>
+              </ng-template>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+      <div class="openMsg">
+
+      </div>
+    </div>
+  </div>
+</div>
