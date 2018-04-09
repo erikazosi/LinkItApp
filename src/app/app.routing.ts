@@ -3,9 +3,6 @@ import {Routes, RouterModule} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core/src/metadata/ng_module';
 
 // Import Containers
-import {
-  FullLayoutComponent
-} from './containers';
 import {LoginComponent} from './views/login/login.component';
 import {PageNotFoundComponent} from './views/page-not-found/page-not-found.component';
 import {SignupComponent} from './views/signup/signup.component';

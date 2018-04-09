@@ -18,56 +18,19 @@ import {AppRoutingModule} from './app.routing';
 
 import {AppComponent} from './app.component';
 
-// Import containers
-import {
-  FullLayoutComponent
-} from './containers';
-
-const APP_CONTAINERS = [
-  FullLayoutComponent]
-
 
 // Import components(bootstrap)
 import {
-  AppAsideComponent,
-  AppBreadcrumbsComponent,
+
   AppFooterComponent,
-  AppHeaderComponent,
-  AppSidebarComponent,
-  AppSidebarFooterComponent,
-  AppSidebarFormComponent,
-  AppSidebarHeaderComponent,
-  AppSidebarMinimizerComponent,
-  APP_SIDEBAR_NAV
+  AppHeaderComponent
+
 } from './components';
 
 const APP_COMPONENTS = [
-  AppAsideComponent,
-  AppBreadcrumbsComponent,
+
   AppFooterComponent,
-  AppHeaderComponent,
-  AppSidebarComponent,
-  AppSidebarFooterComponent,
-  AppSidebarFormComponent,
-  AppSidebarHeaderComponent,
-  AppSidebarMinimizerComponent,
-  APP_SIDEBAR_NAV
-]
-
-// Import directives
-import {
-  AsideToggleDirective,
-  NAV_DROPDOWN_DIRECTIVES,
-  ReplaceDirective,
-  SIDEBAR_TOGGLE_DIRECTIVES
-} from './directives';
-
-const APP_DIRECTIVES = [
-  AsideToggleDirective,
-  NAV_DROPDOWN_DIRECTIVES,
-  ReplaceDirective,
-  SIDEBAR_TOGGLE_DIRECTIVES
-]
+  AppHeaderComponent]
 
 
 // Import 3rd party components
@@ -102,7 +65,7 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
 import {UserStatusComponent} from './views/user-status/user-status.component';
 import {AngularFireDatabaseModule as afd} from 'angularfire2/database-deprecated';
 import {AgmCoreModule} from '@agm/core';
-import { GoogleMapComponent } from './views/google-map/google-map.component';
+import {GoogleMapComponent} from './views/google-map/google-map.component';
 
 @NgModule({
   schemas: [NO_ERRORS_SCHEMA],
@@ -116,20 +79,16 @@ import { GoogleMapComponent } from './views/google-map/google-map.component';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AgmCoreModule.forRoot({apiKey:environment.googleMapsKey}),
+    AgmCoreModule.forRoot({apiKey: environment.googleMapsKey}),
     ModalModule.forRoot(),
     afd,
-    ReactiveFormsModule,
     StorageServiceModule,
     CollapseModule.forRoot(),
-    AngularFireStorageModule,
-
+    AngularFireStorageModule
   ],
   declarations: [
     AppComponent,
-    ...APP_CONTAINERS,
     ...APP_COMPONENTS,
-    ...APP_DIRECTIVES,
     LoginComponent,
     SignupComponent,
     PageNotFoundComponent,
