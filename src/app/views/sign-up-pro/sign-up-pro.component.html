@@ -49,13 +49,22 @@
               </div>
               <input type="date" [(ngModel)]="user.dob" class="form-control" placeholder="Date of Birth">
             </div>
+            <!--<div class="input-group mb-20">-->
+            <!--<div class="input-group-prepend">-->
+            <!--<span class="input-group-text"><i class="icon-user"></i></span>-->
+
+            <!--&lt;!&ndash;<app-google-map></app-google-map>&ndash;&gt;-->
+
+            <!--</div>-->
+
+            
             <div class="input-group mb-20">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="icon-user"></i></span>
 
                 <select [(ngModel)]="user.city" class="form-control form-control-sm">
                   <option selected disabled>Choose City</option>
-                  <option *ngFor="let city of addressList" value="{{city}}">{{city}} </option>
+                  <option *ngFor="let city of addressList" value="{{city}}">{{city}}</option>
 
                 </select>
 
@@ -77,7 +86,7 @@
               </div>
               <select [(ngModel)]="user.category" class="form-control form-control-sm">
                 <option selected disabled>Choose Category</option>
-                <option  *ngFor="let cat of categories" value="{{cat}}">{{cat}} </option>
+                <option *ngFor="let cat of categories" value="{{cat}}">{{cat}}</option>
               </select>
 
             </div>

@@ -19,7 +19,7 @@ export class SignUpProComponent implements OnInit {
   address: String;
   categories = [];
   category: String;
-
+  place: any;
   userList: AngularFireList<any>;
 
   constructor(private as: AuthService,

@@ -83,7 +83,7 @@ export class SearchResultComponent implements OnInit {
 
         }
         else {
-          alert('no result');
+          this.findProWOAddress(category);
         }
       }).bind(this);
   }

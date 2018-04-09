@@ -7,7 +7,6 @@ import {AuthService} from './providers/authentication/auth.service';
 import {ModalModule} from 'ngx-bootstrap/modal';
 
 
-
 //firebases
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireAuthModule} from 'angularfire2/auth';
@@ -94,14 +93,16 @@ import {ProfileComponent} from './views/profile/profile.component';
 import {ExploreComponent} from './views/explore/explore.component';
 import {SearchComponent} from './views/search/search.component';
 import {SearchResultComponent} from './views/search-result/search-result.component';
-import { InboxComponent } from './views/inbox/inbox.component';
-import { SpinnerComponent } from './ui/spinner/spinner.component';
-import { MyProfileComponent } from './views/my-profile/my-profile.component';
-import { ProjectNavComponent } from './views/project-nav/project-nav.component';
-import { MyProjectsComponent } from './views/my-projects/my-projects.component';
-import { AngularFireStorageModule } from 'angularfire2/storage';
-import { UserStatusComponent } from './views/user-status/user-status.component';
-
+import {InboxComponent} from './views/inbox/inbox.component';
+import {SpinnerComponent} from './ui/spinner/spinner.component';
+import {MyProfileComponent} from './views/my-profile/my-profile.component';
+import {ProjectNavComponent} from './views/project-nav/project-nav.component';
+import {MyProjectsComponent} from './views/my-projects/my-projects.component';
+import {AngularFireStorageModule} from 'angularfire2/storage';
+import {UserStatusComponent} from './views/user-status/user-status.component';
+import {AngularFireDatabaseModule as afd} from 'angularfire2/database-deprecated';
+import {AgmCoreModule} from '@agm/core';
+import { GoogleMapComponent } from './views/google-map/google-map.component';
 
 @NgModule({
   schemas: [NO_ERRORS_SCHEMA],
@@ -115,7 +116,9 @@ import { UserStatusComponent } from './views/user-status/user-status.component';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AgmCoreModule.forRoot({apiKey:environment.googleMapsKey}),
     ModalModule.forRoot(),
+    afd,
     ReactiveFormsModule,
     StorageServiceModule,
     CollapseModule.forRoot(),
@@ -143,7 +146,8 @@ import { UserStatusComponent } from './views/user-status/user-status.component';
     MyProfileComponent,
     ProjectNavComponent,
     MyProjectsComponent,
-    UserStatusComponent],
+    UserStatusComponent,
+    GoogleMapComponent],
   providers: [
     AuthService,
     UserService,

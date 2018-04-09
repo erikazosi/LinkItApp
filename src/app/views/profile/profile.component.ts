@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit {
   photoUrl: String;
   id: String;
   uid: String;
-  rating: Number;
+  rating: String;
   proKey: String;
   currentUser = firebase.auth().currentUser;
   sub: any;
@@ -155,11 +155,12 @@ export class ProfileComponent implements OnInit {
     // location.reload();
   }
 
-  makeRating() {
-    const rating = this.db.list('/rating');
+  makeRating(value) {
+    console.log(this.rating);
+    const rate = this.db.list('/rating');
     var currentUser = firebase.auth().currentUser.uid;
-    rating.push({
-      'rating': this.rating,
+    rate.push({
+      'rate': value,
       'ratedBy': currentUser,
       'rateFor': this.id,
       'date': Date.now()
@@ -175,14 +176,15 @@ export class ProfileComponent implements OnInit {
         fullName = snap.val().firstName + ' ' + snap.val().lastName;
         photoUrl = snap.val().photoUrl;
       }));
-      this.allComments.push({fullName: fullName, photoUrl: photoUrl, ...snap.val()});
-      if (this.allComments.length == 0) {
-        this.loadSpinner = false;
-      }
-      this.loadSpinner = false;
 
+      this.allComments.push({fullName: fullName, photoUrl: photoUrl, ...snap.val()});
+      if (snap.exists()) {
+        this.loadSpinner = false;
+
+      }
 
     }).bind(this));
+    this.loadSpinner = false;
 
 
   }

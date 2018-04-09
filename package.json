@@ -16,6 +16,7 @@
   },
   "private": true,
   "dependencies": {
+    "@agm/core": "^1.0.0-beta.2",
     "@angular/animations": "5.2.3",
     "@angular/common": "5.2.3",
     "@angular/compiler": "5.2.3",
@@ -26,6 +27,7 @@
     "@angular/platform-browser-dynamic": "5.2.3",
     "@angular/router": "5.2.3",
     "@angular/upgrade": "5.2.3",
+    "angular-rating": "^3.0.3",
     "angular-webstorage-service": "^1.0.2",
     "angularfire2": "^5.0.0-rc.6",
     "bootstrap": "4.0.0",
@@ -48,6 +50,7 @@
     "@angular/cli": "1.6.7",
     "@angular/compiler-cli": "5.2.3",
     "@angular/language-service": "5.2.3",
+    "@types/googlemaps": "^3.30.8",
     "@types/jasmine": "2.8.6",
     "@types/jasminewd2": "2.0.3",
     "@types/node": "9.4.0",

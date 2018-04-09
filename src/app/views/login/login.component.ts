@@ -97,7 +97,7 @@ export class LoginComponent implements OnInit {
       if (role == 'client') {
         this.storage.set('role', 'client');
         this.storage.set('isLoggedIn', 'true');
-        this.router.navigate(['cDashboard']);
+        this.router.navigate(['']);
 
       }
       else if (role == 'admin') {
@@ -109,7 +109,7 @@ export class LoginComponent implements OnInit {
       else {
         this.saveToLocalStorage('role', 'pro');
         this.storage.set('isLoggedIn', 'true');
-        this.router.navigate(['dashboard'])
+        this.router.navigate([''])
 
       }
     }).bind(this));

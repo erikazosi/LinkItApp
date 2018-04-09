@@ -6,6 +6,7 @@ import {UserService} from '../../model/user/user.service';
 import {AngularFireDatabase} from 'angularfire2/database-deprecated';
 import {Router} from '@angular/router';
 
+
 import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
 
 // Import Observable
@@ -38,19 +39,12 @@ export class AuthService {
       }).subscribe();
   }
 
-  private updateOnlineStatus(status:String)
-  {
-    if(!this.userId) return
-    this.db.object('user/'+this.userKey).update({status:status})
-
-  }
-
   saveToLocalStorage(key, val): void {
     this.storage.set(key, val);
     this.userData[key] = this.storage.get(key);
   }
 
-  addUserToDb(email, password, role,firstName,lastName) {
+  addUserToDb(email, password, role, firstName, lastName) {
     var currentUser = firebase.auth().currentUser;
     this.user.firstName = firstName;
     this.user.lastName = lastName;
@@ -58,7 +52,7 @@ export class AuthService {
     this.user.uid = currentUser.uid;
     this.user.email = currentUser.email;
     this.user.photoUrl = currentUser.photoURL;
-    this.user.phone=currentUser.phoneNumber;
+    this.user.phone = currentUser.phoneNumber;
     this.userSvc.persistUser(this.user);
     console.log('user persisted');
 
@@ -68,21 +62,21 @@ export class AuthService {
     return firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((res) => {
       // var token = result.credential.accessToken;
       // var user = result.user;
-        var user=firebase.auth().currentUser;
-      var data: Boolean=true;
+      var user = firebase.auth().currentUser;
+      var data: Boolean = true;
       // https://codereview.stackexchange.com/questions/97696/function-to-split-full-name-into-first-last
-       var userExist=this.userSvc.findUserByEmail(user.email).once('value',( function (snap) {
-         data = snap.exists();
+      var userExist = this.userSvc.findUserByEmail(user.email).once('value', (function (snap) {
+        data = snap.exists();
 
-         if (!data) {
-           var nameArr = user.displayName.split(/\s+/);
+        if (!data) {
+          var nameArr = user.displayName.split(/\s+/);
 
-           var firstName = nameArr.slice(0, -1).join(' ');
-           var lastName = nameArr.pop();
-           this.addUserToDb('', '', 'client',firstName,lastName);
+          var firstName = nameArr.slice(0, -1).join(' ');
+          var lastName = nameArr.pop();
+          this.addUserToDb('', '', 'client', firstName, lastName);
 
-         }
-       }).bind(this));
+        }
+      }).bind(this));
 
 
     })
@@ -122,6 +116,8 @@ intervalId = setInterval(clearFunction, 3000)
   logout() {
     this.storage.remove('role');
     this.storage.remove('isLoggedIn');
+    this.updateOnlineStatus('offline');
+
     return firebase.auth().signOut().then(function () {
       console.log('User Logged out');
     }).catch(function (error) {
@@ -133,18 +129,18 @@ intervalId = setInterval(clearFunction, 3000)
 
   loginWithFacebook() {
     return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(function (result) {
-      var user=firebase.auth().currentUser;
+      var user = firebase.auth().currentUser;
 
-      var found= this.userSvc.findUserByEmail(user.email);
+      var found = this.userSvc.findUserByEmail(user.email);
 
       if (found.toString()) {
         console.log(found.toString());
-      }else{
+      } else {
         var nameArr = this.currentUser.displayName.split(/\s+/);
 
         var firstName = nameArr.slice(0, -1).join(' ');
         var lastName = nameArr.pop();
-        this.addUserToDb('', '', 'client',firstName,lastName);
+        this.addUserToDb('', '', 'client', firstName, lastName);
       }
     }).catch(function (error) {
       // Handle Errors here.
@@ -172,10 +168,10 @@ intervalId = setInterval(clearFunction, 3000)
     });
   }
 
-  signup(email, password, client,firstName,lastName) {
+  signup(email, password, client, firstName, lastName) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((res) => {
       if (client == 'client') {
-        this.addUserToDb(email, password, client,firstName,lastName);
+        this.addUserToDb(email, password, client, firstName, lastName);
       }
       // res.sendEmailVerification();
       alert('Account created');
@@ -204,19 +200,33 @@ intervalId = setInterval(clearFunction, 3000)
   private updateUserOnConnect() {
     return this.db.object('.info/connected')
       .do(connected => {
-        let status = connected.$value ? 'online' : 'offline'
-        this.updateOnlineStatus(status);
+        if (connected) {
+          this.updateOnlineStatus('online');
+
+        }
+        else
+          this.updateOnlineStatus('offline');
+
+
       })
       .subscribe();
 
   }
 
   private updateOnDisconnect() {
-    firebase.database().ref().child('users/' + this.userKey)
+    firebase.database().ref().child('user/' + this.userKey)
       .onDisconnect()
       .update({status: 'offline'});
 
   }
+
+
+  private updateOnlineStatus(status: String) {
+    if (!this.userKey) return
+    this.db.object('user/' + this.userKey).update({status: status})
+
+  }
+
 }
 
 

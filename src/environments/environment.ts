@@ -12,5 +12,8 @@ export const environment = {
     projectId: 'linkitapp-7021f',
     storageBucket: 'linkitapp-7021f.appspot.com',
     messagingSenderId: '233497977712'
-  }
+  },
+
+  googleMapsKey:'AIzaSyBNdcvK_acURwnUOb6ut1Zwrf-cbh_beY0'
+
 };
