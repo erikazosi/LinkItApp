@@ -24,7 +24,7 @@ export class AppHeaderComponent {
   countMsg = 0;
   newMsg: Number;
   currentUser: any;
-
+  newAcceptedProject: any;
 
   constructor(public as: AuthService, public router: Router, private userSevice: UserService, @Inject(LOCAL_STORAGE) private storage: WebStorageService) {
     this.currentUser = this.storage.get('firebase:authUser:AIzaSyA5H7eILXvGENn7Vf3sFnJTevTgRUen2lo:[DEFAULT]');
@@ -49,6 +49,7 @@ export class AppHeaderComponent {
       this.isPro = true;
     }
     else if (this.role == 'client') {
+      this.countAcceptedProject();
       this.isClient = true;
     } else {
       this.isAdmin = true;
@@ -100,4 +101,19 @@ export class AppHeaderComponent {
 
   }
 
+  private countAcceptedProject() {
+    var current = this.storage.get('firebase:authUser:AIzaSyA5H7eILXvGENn7Vf3sFnJTevTgRUen2lo:[DEFAULT]');
+    firebase.database().ref('projects/').orderByChild('appointmentBy')
+      .equalTo(current.uid).on('child_added', (function (snap) {
+      var data = snap.val();
+
+      if (data.latest == 'Y') {
+
+        this.count++;
+
+      }
+      this.newAcceptedProject = this.count;
+
+    }).bind(this));
+  }
 }

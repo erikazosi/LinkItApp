@@ -1,19 +1,19 @@
 <app-header></app-header>
 
-<div class="sideInfo all boxShadow">
-  <img width="75px" class="img-fluid rounded-circle" style="background-color: #3e515b"
-       src="{{user.photoUrl}}" alt="user image">
-  <button class="btn btn-primary">Upload Photo</button>
-  <b>{{user.firstName}} {{user.lastName}}</b>
-  <b>{{user.email}}</b>
+<!--<div class="sideInfo all boxShadow">-->
+  <!--<img width="75px" class="img-fluid rounded-circle" style="background-color: #3e515b"-->
+       <!--src="{{user.photoUrl}}" alt="user image"><br>-->
+  <!--<button class="btn btn-primary">Upload Photo</button><br><br>-->
+  <!--<b>{{user.firstName}} {{user.lastName}}</b><br>-->
+  <!--<b>{{user.email}}</b>-->
 
-</div>
+<!--</div>-->
 <div class="first all boxShadow">
   <div class="profileHead">
     <img width="75px" class="img-fluid rounded-circle"
          src="{{user.photoUrl}}" alt="user image"> &nbsp;&nbsp;
-    Fuull maem{{user.firstName}} {{user.lastName}}
-    <button class="btn btn-primary" data-toggle="modal" (click)="editBusinessTime(temp)">Edit</button>
+    {{user.firstName}} {{user.lastName}}
+    <!--<button class="btn btn-primary" data-toggle="modal" (click)="editBusinessTime(temp)">Edit</button>-->
   </div>
 
   <ng-template #temp>
@@ -24,16 +24,15 @@
       </button>
     </div>
     <div class="modal-body">
-      <input type="text" [(ngModel)]="user.firstName">{{user.firstName}}
-      <input type="text" [(ngModel)]="user.lastName">{{user.lastName}}<br>
-      <input type="text" [(ngModel)]="user.email">{{user.email}}<br>
-      <input type="text" [(ngModel)]="user.phone">{{user.phone}}<br>
+     Fullname: <input type="text" [(ngModel)]="user.firstName" value="{{user.firstName}}">
+      <input type="text" [(ngModel)]="user.lastName" value="{{user.lastName}}"><br><br>
+      Phone:<input type="text" [(ngModel)]="user.phone" value="{{user.phone}}"><br>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalRef.hide()">
         Close
       </button>
-      <button type="button" class="btn btn-primary">Save Changes
+      <button type="button" class="btn btn-primary" (click)="updateProfile()">Save Changes
       </button>
     </div>
   </ng-template>
@@ -47,46 +46,48 @@
   <hr>
   <i class="fa fa-map-marker"><b> Address</b></i>
   <p>{{user.city}}</p>
+<hr>
+  <i class="fa fa-map-marker"><b> Email</b></i>
+  <p>{{user.email}}</p>
   <hr>
-  <i class="fa fa-users"><b> Number of employees</b></i>
-  <p>2</p>
+
 
 </div>
 
-<div class="second all boxShadow" *ngIf="isPro">
-  <b>Business Time</b>
-  <button class="btn btn-primary" data-toggle="modal" (click)="editBusinessTime(template)"> Edit</button>
-  <br>
-  Sunday: {{scheduleTime[0].Sunday.from}}- {{scheduleTime[0].Sunday.to}}<br>
-  Monday: {{scheduleTime[0].Monday.from}}- {{scheduleTime[0].Monday.to}}<br>
-  Tuesday: {{scheduleTime[0].Tuesday.from}}- {{scheduleTime[0].Tuesday.to}}<br>
-  Wednesday: {{scheduleTime[0].Wednesday.from}}- {{scheduleTime[0].Wednesday.to}}<br>
-  Thursday: {{scheduleTime[0].Thursday.from}}- {{scheduleTime[0].Thursday.to}}<br>
-  Friday: {{scheduleTime[0].Friday.from}}- {{scheduleTime[0].Friday.to}}<br>
-  Saturday: {{scheduleTime[0].Saturday.from}}- {{scheduleTime[0].Saturday.to}}<br>
-  <ng-template #template>
-    <div class="modal-header">
-      <h4 class="modal-title pull-left">Business Time</h4>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      Sunday: <input type="time">{{scheduleTime[0].Sunday.from}}- {{scheduleTime[0].Sunday.to}}<br>
-      Monday: {{scheduleTime[0].Monday.from}}- {{scheduleTime[0].Monday.to}}<br>
-      Tuesday: {{scheduleTime[0].Tuesday.from}}- {{scheduleTime[0].Tuesday.to}}<br>
-      Wednesday: {{scheduleTime[0].Wednesday.from}}- {{scheduleTime[0].Wednesday.to}}<br>
-      Thursday: {{scheduleTime[0].Thursday.from}}- {{scheduleTime[0].Thursday.to}}<br>
-      Friday: {{scheduleTime[0].Friday.from}}- {{scheduleTime[0].Friday.to}}<br>
-      Saturday: {{scheduleTime[0].Saturday.from}}- {{scheduleTime[0].Saturday.to}}<br>
+<!--<div class="second all boxShadow" *ngIf="isPro">-->
+<!--<b>Business Time</b>-->
+<!--<button class="btn btn-primary" data-toggle="modal" (click)="editBusinessTime(template)"> Edit</button>-->
+<!--<br>-->
+<!--Sunday: {{scheduleTime[0].Sunday.from}}- {{scheduleTime[0].Sunday.to}}<br>-->
+<!--Monday: {{scheduleTime[0].Monday.from}}- {{scheduleTime[0].Monday.to}}<br>-->
+<!--Tuesday: {{scheduleTime[0].Tuesday.from}}- {{scheduleTime[0].Tuesday.to}}<br>-->
+<!--Wednesday: {{scheduleTime[0].Wednesday.from}}- {{scheduleTime[0].Wednesday.to}}<br>-->
+<!--Thursday: {{scheduleTime[0].Thursday.from}}- {{scheduleTime[0].Thursday.to}}<br>-->
+<!--Friday: {{scheduleTime[0].Friday.from}}- {{scheduleTime[0].Friday.to}}<br>-->
+<!--Saturday: {{scheduleTime[0].Saturday.from}}- {{scheduleTime[0].Saturday.to}}<br>-->
+<!--<ng-template #template>-->
+<!--<div class="modal-header">-->
+<!--<h4 class="modal-title pull-left">Business Time</h4>-->
+<!--<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">-->
+<!--<span aria-hidden="true">&times;</span>-->
+<!--</button>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+<!--Sunday: <input type="time">{{scheduleTime[0].Sunday.from}}- {{scheduleTime[0].Sunday.to}}<br>-->
+<!--Monday: {{scheduleTime[0].Monday.from}}- {{scheduleTime[0].Monday.to}}<br>-->
+<!--Tuesday: {{scheduleTime[0].Tuesday.from}}- {{scheduleTime[0].Tuesday.to}}<br>-->
+<!--Wednesday: {{scheduleTime[0].Wednesday.from}}- {{scheduleTime[0].Wednesday.to}}<br>-->
+<!--Thursday: {{scheduleTime[0].Thursday.from}}- {{scheduleTime[0].Thursday.to}}<br>-->
+<!--Friday: {{scheduleTime[0].Friday.from}}- {{scheduleTime[0].Friday.to}}<br>-->
+<!--Saturday: {{scheduleTime[0].Saturday.from}}- {{scheduleTime[0].Saturday.to}}<br>-->
 
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalRef.hide()">
-        Close
-      </button>
-      <button type="button" class="btn btn-primary">Save Changes
-      </button>
-    </div>
-  </ng-template>
-</div>
+<!--</div>-->
+<!--<div class="modal-footer">-->
+<!--<button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalRef.hide()">-->
+<!--Close-->
+<!--</button>-->
+<!--<button type="button" class="btn btn-primary">Save Changes-->
+<!--</button>-->
+<!--</div>-->
+<!--</ng-template>-->
+<!--</div>-->

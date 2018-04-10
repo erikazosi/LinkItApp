@@ -4,6 +4,7 @@ import {UserService} from '../../model/user/user.service';
 import {AppHeaderComponent} from '../../components/app-header';
 import {BsModalRef} from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import {BsModalService} from 'ngx-bootstrap/modal';
+import {Time} from '@angular/common';
 
 
 @Component({
@@ -17,7 +18,9 @@ export class ProjectsComponent implements OnInit {
   newProjects: Number;
   fullName: String;
   email: String;
+  appointmentTime: Time;
   allProject = [];
+  noTime: Boolean = false;
   currentUser = firebase.auth().currentUser;
 
   constructor(private userSvc: UserService, private modalService: BsModalService) {
@@ -33,6 +36,8 @@ export class ProjectsComponent implements OnInit {
     firebase.database().ref('projects/').orderByChild('appointmentFor').equalTo(this.currentUser.uid).on('child_added', (function (snap) {
       if (snap.val().status != 'deleted')
         this.allProject.push({'appointmentId': snap.key, ...snap.val()});
+
+
 
     }).bind(this));
 
@@ -91,29 +96,45 @@ export class ProjectsComponent implements OnInit {
     }).bind(this));
   }
 
-  acceptProject() {
-    var ref = firebase.database().ref('projects/');
-    ref.orderByChild('appointmentFor')
-      .equalTo(this.currentUser.uid).on('child_added', (function (snap) {
-      var data = snap.val();
-      ref.child(snap.key).update({
-        'status': 'accepted'
-      });
+  acceptProject(appointmentId) {
+    if (this.appointmentTime) {
+      var ref = firebase.database().ref('projects/');
+      ref.orderByChild('appointmentFor')
+        .equalTo(this.currentUser.uid).on('child_added', (function (snap) {
+        if (snap.key == appointmentId) {
+          var data = snap.val();
+          ref.child(snap.key).update({
+            'status': 'accepted',
+            'appointmentTime': this.appointmentTime,
+            'latest': 'Y'
 
-    }).bind(this));
+          });
+        }
+
+
+      }).bind(this));
+      this.closeModal();
+    }
+    else {
+      this.noTime = true;
+
+    }
+
   }
 
-  deleteProject() {
+  deleteProject(appointmentId) {
     var ref = firebase.database().ref('projects/');
     ref.orderByChild('appointmentFor')
       .equalTo(this.currentUser.uid).on('child_added', (function (snap) {
-      var data = snap.val();
-      ref.child(snap.key).update({
-        'status': 'deleted'
-      });
+      if (snap.key == appointmentId) {
 
+        var data = snap.val();
+        ref.child(snap.key).update({
+          'status': 'deleted'
+        });
+      }
     }).bind(this));
-
+    this.closeModal();
   }
 }
 

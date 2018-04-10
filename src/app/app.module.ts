@@ -66,6 +66,7 @@ import {UserStatusComponent} from './views/user-status/user-status.component';
 import {AngularFireDatabaseModule as afd} from 'angularfire2/database-deprecated';
 import {AgmCoreModule} from '@agm/core';
 import {GoogleMapComponent} from './views/google-map/google-map.component';
+import { PendingProjectsComponent } from './views/pending-projects/pending-projects.component';
 
 @NgModule({
   schemas: [NO_ERRORS_SCHEMA],
@@ -106,7 +107,8 @@ import {GoogleMapComponent} from './views/google-map/google-map.component';
     ProjectNavComponent,
     MyProjectsComponent,
     UserStatusComponent,
-    GoogleMapComponent],
+    GoogleMapComponent,
+    PendingProjectsComponent],
   providers: [
     AuthService,
     UserService,

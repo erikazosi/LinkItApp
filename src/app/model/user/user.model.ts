@@ -3,7 +3,7 @@
 export class User{
   $key:string;
   firstName: String;
-  lastName:String;
+  lastName:string;
   email: String;
   password: String;
   phone: String;

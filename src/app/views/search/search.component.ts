@@ -18,8 +18,10 @@ export class SearchComponent implements OnInit {
 
   searchWord: String;
   searchResult = [];
-
+  showList: Boolean = false;
+  categories = [];
   constructor(@Inject(UserService) private userSvc: UserService, private router: Router) {
+    this.getCategories()
   }
 
   ngOnInit() {
@@ -28,7 +30,18 @@ export class SearchComponent implements OnInit {
   search() {
     this.router.navigate(['searchResult',this.searchWord]);
   }
+  getCategories() {
+    firebase.database().ref('Category').on('child_added', (data) => {
+      if (data.val().parentId != 0) {
+        data.forEach((res) => {
+          this.categories.push(data.val().name);
+          console.log('categories fetched>');
 
+          return true;
+        })
+      }
+    });
+  }
 // }
 //   findPro() {
 //     var user = firebase.auth().currentUser;
@@ -83,4 +96,7 @@ export class SearchComponent implements OnInit {
 //   }
 
 
+  showCategories() {
+    this.showList = true;
+  }
 }

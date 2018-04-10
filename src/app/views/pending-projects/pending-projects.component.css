@@ -1,0 +1,20 @@
+.projectTable{
+  background-color: white;
+  width: 482px;
+  position: fixed;
+  top: 102px;
+  left: 600px;
+  height: 440px;
+  overflow-y: scroll;
+}
+
+
+.thumbnail:hover {
+  position:relative;
+  top:-25px;
+  left:-35px;
+  width:500px;
+  height:auto;
+  display:block;
+  z-index:999;
+}

@@ -29,18 +29,25 @@ export class MyProfileComponent implements OnInit {
     }
 
     var currentUser = this.storage.get('firebase:authUser:AIzaSyA5H7eILXvGENn7Vf3sFnJTevTgRUen2lo:[DEFAULT]');
-    this.user.photoUrl = currentUser.photoURL;
 
 
     this.userSvc.getCurrentUserInfo(currentUser.uid).on('child_added', (function (snap) {
+      this.user.photoUrl = currentUser.photoURL;
+
       this.user.firstName = snap.val().firstName;
       this.user.lastName = snap.val().lastName;
       this.user.city = snap.val().city;
       this.user.phone = snap.val().phone;
+      this.user.email = snap.val().email;
       // this.user.photoUrl = snap.val().photoUrl;
     }).bind(this));
 
     this.getBusinessTime(currentUser.uid);
+
+
+  }
+
+  updateProfile(){
 
 
   }

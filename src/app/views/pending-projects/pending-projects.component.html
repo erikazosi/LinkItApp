@@ -1,0 +1,68 @@
+<app-header></app-header>
+<!--https://stackoverflow.com/questions/4620239/css-whats-a-good-way-to-create-a-raised-box-effect-->
+<app-project-nav></app-project-nav>
+
+<div class="projectTable">
+  <table class="table table-hover table-responsive">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Appointment Id</th>
+      <th>Appointment Date</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of allProject;let i=index" [attr.data-index]="i" data-toggle="modal"
+        (click)="showProjectDetail(template,data.appointmentBy)">
+      <th scope="row">{{i+1}}</th>
+      <td>{{data.appointmentId}}</td>
+      <td>{{data.appointmentDate}}</td>
+      <td>{{data.status}}</td>
+      <td>
+
+      </td>
+      <ng-template #template>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Project Detail</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <b>Appointment Time </b><input type="time"><br>
+          <b>Full Name</b>
+          <p>{{fullName}}</p>
+          <b>Email</b>
+          <p>{{email}}</p>
+          <b>Appointment ID</b>
+          <p>{{data.appointmentId}}</p>
+          <b>Contact Way</b>
+          <p>{{data.contactWay}}</p>
+          <b>Additional Note</b>
+          <p>{{data.note}}</p>
+          <b>Status</b>
+          <p>{{data.status}}</p>
+          <b>Additional Files</b><br>
+          <a href="{{data.additionalFile}}" target="_blank"><img src="{{data.additionalFile}}" height="150px"
+                                                                 width="350px" class="thumbnail">
+          </a>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalRef.hide()">
+            Close
+          </button>
+          <button type="button" (click)="acceptProject(data.appointmentId)" class="btn btn-primary">Accept Request
+          </button>
+          <button (click)="deleteProject(data.appointmentId)" style="border: none;background-color:white"><i
+            class="fa fa-trash"></i>
+          </button>
+        </div>
+      </ng-template>
+
+    </tr>
+
+    </tbody>
+  </table>
+</div>

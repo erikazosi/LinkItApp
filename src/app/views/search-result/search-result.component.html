@@ -1,7 +1,8 @@
 <app-header></app-header>
 <app-spinner *ngIf="loadSpinner"></app-spinner>
 
-<div *ngFor="let info of searchResult" class="col-sm-6 col-md-4 position-relative" style="top:50px">
+<div *ngFor="let info of searchResult" class="col-sm-6 col-md-4 position-relative" style="    top: 70px;
+    left: 380px;">
   <div class="card">
     <div class="card-body">
       <div class="float-left border-right w-75">
@@ -9,32 +10,32 @@
           <img width="100px" class="img-fluid rounded-circle float-left"
                src="{{info.photoUrl}}" alt="user image">
           <div class="position-relative" style="top:30px">
-            <b>    {{info.firstName}} {{info.lastName}}</b><br>
+            <b> {{info.firstName}} {{info.lastName}}</b><br>
           </div>
         </div>
         <b> {{info.category}}</b> <br>
         <i class="fa fa-gears"></i> {{info.city}}, Nepal<br>
-      <app-user-status [status]="info.status"></app-user-status>
+        <app-user-status [status]="info.status"></app-user-status>
       </div>
       <div>
-      <button class="btn btn-primary" (click)="loadProfile(info._key)">  View Detail </button>
+        <button class="btn btn-primary" (click)="loadProfile(info._key)"> View Detail</button>
       </div>
     </div>
-    <div class="card-footer">
+    <!--<div class="card-footer">-->
 
-      <button type="button" class="btn btn-primary"
-              (click)="isCollapsed = !isCollapsed">Rating and Reviews
-      </button>
+    <!--<button type="button" class="btn btn-primary"-->
+    <!--(click)="isCollapsed = !isCollapsed">Rating and Reviews-->
+    <!--</button>-->
 
-      <div
-        (expanded)="expanded($event)"
-        (collapsed)="collapsed($event)"
+    <!--<div-->
+    <!--(expanded)="expanded($event)"-->
+    <!--(collapsed)="collapsed($event)"-->
 
-        [collapse]="isCollapsed"
-        class="card card-block card-header">
-        <div class="well well-lg">Some content</div>
-      </div>
-    </div>
+    <!--[collapse]="isCollapsed"-->
+    <!--class="card card-block card-header">-->
+    <!--<div class="well well-lg">Some content</div>-->
+    <!--</div>-->
+    <!--</div>-->
   </div>
 </div><!--/.col-->
 

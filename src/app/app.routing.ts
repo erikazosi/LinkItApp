@@ -18,28 +18,11 @@ import {SearchResultComponent} from './views/search-result/search-result.compone
 import {InboxComponent} from './views/inbox/inbox.component';
 import {MyProfileComponent} from './views/my-profile/my-profile.component';
 import {MyProjectsComponent} from './views/my-projects/my-projects.component';
+import {PendingProjectsComponent} from './views/pending-projects/pending-projects.component';
 
 
 export const appRoutes: Routes = [
-  // {
-  //   path: '',
-  //   component: FullLayoutComponent,
-  //   data: {
-  //     title: 'Home'
-  //   },
-  //
-  //   children: [
-  //     {
-  //       path: 'user',
-  //       loadChildren: './views/users/users.module#UsersModule'
-  //     },
-  //     {
-  //       path: 'category',
-  //       loadChildren: 'app/views/category/category.module#CategoryModule'
-  //     }
-  //   ],
-  //   canActivate: [AuthGuard]
-  // },
+
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'proSignup', component: SignUpProComponent},
@@ -57,6 +40,7 @@ export const appRoutes: Routes = [
   {path: 'searchResult/:category', component: SearchResultComponent},
   {path: 'myProfile', component: MyProfileComponent},
   {path: 'myProjects', component: MyProjectsComponent},
+  {path: 'projects/pending', component: PendingProjectsComponent},
   {path: '**', component: PageNotFoundComponent}
 
 ];

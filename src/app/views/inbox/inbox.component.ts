@@ -33,15 +33,20 @@ export class InboxComponent implements OnInit {
   getAllMessages(userKey) {
     firebase.database().ref('messages').orderByChild('receiver').equalTo(userKey).on('child_added', (function (snap) {
 
-      this.msgList.push({_key: snap.key, ...snap.val()});
+      this.msgList.push({_key: snap.key, ...snap.val()}).then((res) => {
+          this.loadSpinner = false;
+
+        }
+      )
       // this.getSenderName(snap.val().sender);
 
-      this.loadSpinner = false;
 
-    }).bind(this))
-    if (this.msgList.length = 0) {
-      this.loadSpinner = false;
-    }
+
+
+    }).bind(this));
+    this.loadSpinner = false;
+
+
   }
 
   private getUserKey(uid) {
@@ -59,7 +64,7 @@ export class InboxComponent implements OnInit {
 
   }
 
-  openModal(template: TemplateRef<any>,msgKey,sender) {
+  openModal(template: TemplateRef<any>, msgKey, sender) {
     this.modalRef = this.modalService.show(template);
     this.changeReadStatus(msgKey);
     this.getSenderName(sender);
@@ -70,18 +75,18 @@ export class InboxComponent implements OnInit {
   }
 
 
-  getSenderName(uid){
-    this.userSvc.getCurrentUserInfo(uid).on('child_added',(function(snap){
-      this.senderName = snap.val().firstName +' '+ snap.val().lastName;
+  getSenderName(uid) {
+    this.userSvc.getCurrentUserInfo(uid).on('child_added', (function (snap) {
+      this.senderName = snap.val().firstName + ' ' + snap.val().lastName;
     }).bind(this));
   }
 
-  replyMsg(msg){
+  replyMsg(msg) {
     this.userSvc.getCurrentUserInfo(msg.sender).on('child_added', (function (snap) {
 
       const messageList = this.db.list('/messages');
       messageList.push({
-        'title': 'Reply to:' +msg.title,
+        'title': 'Reply to:' + msg.title,
         'message': this.reply,
         'sender': this.currentUser.uid,
         'receiver': snap.key,
