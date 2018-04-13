@@ -1,13 +1,14 @@
 
+<div class="googleMapContainer">
 <input type="text" [(ngModel)]="place">
+<button (click)="search()">Search</button>
 <div *ngIf="lati && longi">
-
   <agm-map [latitude]="lati" [longitude]="longi" [scrollwheel]="false">
     <agm-marker [latitude]="lati" [longitude]="longi">
       <agm-info-window>
         <h3>You are here</h3>
       </agm-info-window>
     </agm-marker>
-
   </agm-map>
+</div>
 </div>

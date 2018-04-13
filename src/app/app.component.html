@@ -1,4 +1,15 @@
-<app-header></app-header>
 
 <router-outlet></router-outlet>
-<app-footer></app-footer>
+<!-- <div class="mapContainer">
+  <agm-map
+   [latitude]="lat"
+    [longitude]="long"
+    (mapClick)="onChoosePlace($event)"
+    [zoom] = "zoom"
+     >
+    <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>
+  </agm-map>
+</div>
+{{lat}} <br />
+{{long}} -->
+<app-google-map></app-google-map>

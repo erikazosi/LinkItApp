@@ -64,10 +64,10 @@ import {MyProjectsComponent} from './views/my-projects/my-projects.component';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import {UserStatusComponent} from './views/user-status/user-status.component';
 import {AngularFireDatabaseModule as afd} from 'angularfire2/database-deprecated';
-import {AgmCoreModule} from '@agm/core';
 import {GoogleMapComponent} from './views/google-map/google-map.component';
 import { PendingProjectsComponent } from './views/pending-projects/pending-projects.component';
-
+import { AgmCoreModule } from '@agm/core';
+////////
 @NgModule({
   schemas: [NO_ERRORS_SCHEMA],
   imports: [
@@ -85,7 +85,10 @@ import { PendingProjectsComponent } from './views/pending-projects/pending-proje
     afd,
     StorageServiceModule,
     CollapseModule.forRoot(),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBNr4fXzeu9dIHYMhpfJwNaxFREya7VUzs'
+    })
   ],
   declarations: [
     AppComponent,

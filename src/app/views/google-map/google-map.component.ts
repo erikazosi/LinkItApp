@@ -2,7 +2,8 @@ import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {} from '@types/googlemaps';
 import {MapsAPILoader} from '@agm/core';
 import {FormControl} from '@angular/forms';
-import GeocoderRequest = google.maps.GeocoderRequest;
+
+import * as geocoder from 'geocoder';
 
 @Component({
   selector: 'app-google-map',
@@ -19,26 +20,24 @@ export class GoogleMapComponent implements OnInit {
 
   constructor(private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone) {
+      geocoder.selectProvider("google",{"appid":"AIzaSyBNr4fXzeu9dIHYMhpfJwNaxFREya7VUzs"});
   }
 
   ngOnInit() {
     this.zoom = 4;
-    this.lati = 0;
-    this.longi= 0;
-
-    //set current position
-
-
-    var geocoder = new google.maps.Geocoder();
-    geocoder.geocode({address: this.place}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-
-        this.map.setCenter(results[0].geometry.location);
-
-        this.map.setZoom(17);
-      }
-    })
+    this.lati = 27.694467564694776;
+    this.longi = 85.3143310546875;
   }
+
+  search(){
+    geocoder.geocode(this.place, (err, data)=>{
+      var geocode = data.results[0].geometry.location;
+      this.longi = geocode.lng;
+      this.lati = geocode.lat;
+    });
+  }
+
+
 
   // private setCurrentPosition() {
   //   if ("geolocation" in navigator) {
@@ -93,4 +92,3 @@ export class GoogleMapComponent implements OnInit {
   //     }
   //   });
   // }
-
