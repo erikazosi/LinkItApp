@@ -7,10 +7,7 @@ import {LoginComponent} from './views/login/login.component';
 import {PageNotFoundComponent} from './views/page-not-found/page-not-found.component';
 import {SignupComponent} from './views/signup/signup.component';
 import {AuthGuard} from './providers/authentication/auth.guard';
-import {UserComponent} from './views/users/user/user.component';
 import {SignUpProComponent} from './views/sign-up-pro/sign-up-pro.component';
-import {CdashboardComponent} from './views/cdashboard/cdashboard.component';
-import {PdashboardComponent} from './views/pdashboard/pdashboard.component';
 import {ProjectsComponent} from './views/projects/projects.component';
 import {ProfileComponent} from './views/profile/profile.component';
 import {ExploreComponent} from './views/explore/explore.component';
@@ -26,21 +23,15 @@ export const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'proSignup', component: SignUpProComponent},
-  {
-    path: 'dashboard', component: PdashboardComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'cDashboard', component: CdashboardComponent, canActivate: [AuthGuard]
-  },
   {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]},
   {path: 'inbox', component: InboxComponent, canActivate: [AuthGuard]},
-  {path: 'profile/:id', component: ProfileComponent},
+  {path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: '', component: ExploreComponent},
   {path: 'explore', component: ExploreComponent},
   {path: 'searchResult/:category', component: SearchResultComponent},
-  {path: 'myProfile', component: MyProfileComponent},
-  {path: 'myProjects', component: MyProjectsComponent},
-  {path: 'projects/pending', component: PendingProjectsComponent},
+  {path: 'myProfile', component: MyProfileComponent, canActivate: [AuthGuard]},
+  {path: 'myProjects', component: MyProjectsComponent, canActivate: [AuthGuard]},
+  {path: 'projects/pending', component: PendingProjectsComponent, canActivate: [AuthGuard]},
   {path: '**', component: PageNotFoundComponent}
 
 ];
