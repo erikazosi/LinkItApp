@@ -1,11 +1,9 @@
 .projectTable{
-  background-color: white;
-  width: 482px;
-  position: fixed;
-  top: 102px;
-  left: 600px;
-  height: 440px;
-  overflow-y: scroll;
+  padding: 30px 45px;
+}
+
+.projectTable table {
+  width: 100%;
 }
 
 .thumbnail:hover {

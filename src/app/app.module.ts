@@ -64,14 +64,22 @@ import {MyProjectsComponent} from './views/my-projects/my-projects.component';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import {UserStatusComponent} from './views/user-status/user-status.component';
 import {AngularFireDatabaseModule as afd} from 'angularfire2/database-deprecated';
-import {GoogleMapComponent} from './views/google-map/google-map.component';
-import { PendingProjectsComponent } from './views/pending-projects/pending-projects.component';
-import { AgmCoreModule } from '@agm/core';
+// import {GoogleMapComponent} from './views/google-map/google-map.component';
+import {PendingProjectsComponent} from './views/pending-projects/pending-projects.component';
+import {AgmCoreModule} from '@agm/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
+import {Ng2OrderModule} from 'ng2-order-pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
 ////////
 @NgModule({
   schemas: [NO_ERRORS_SCHEMA],
   imports: [
     BrowserModule,
+    Ng2SearchPipeModule,
+    Ng2OrderModule,
+    NgxPaginationModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
@@ -110,7 +118,7 @@ import { AgmCoreModule } from '@agm/core';
     ProjectNavComponent,
     MyProjectsComponent,
     UserStatusComponent,
-    GoogleMapComponent,
+    // GoogleMapComponent,
     PendingProjectsComponent],
   providers: [
     AuthService,

@@ -1,189 +1,210 @@
-<app-header></app-header>
-<div class="profileContainer">
 
-  <div class="profileHead">
-    <img width="75px" class="img-fluid rounded-circle" style="position: relative;
-    top: 95px;
-    left: 10px;"
-         src="{{user.photoUrl}}" alt="user image">
-
-
-    <div class="info">
-      <i class="fa-user fa font-xl"> {{user.firstName}} {{user.lastName}}</i>
-      <i class="icon-location-pin icons font-xl d-block mt-4"> {{user.city}} </i>
-      <i class="icon-phone icons font-xl  d-block mt-4"> {{user.phone}} </i>
-    </div>
-
-    <p class="position-relative about">About</p>
-
-  </div>
-
-  <div class="profileBody position-relative">
-
-    <b>About this pro</b><br>
-
-    <textarea disabled>Bio goes here</textarea>
-
-    <button (click)="startProject(temp)" data-toggle="modal" class="btn btn-outline-primary appointmentBtn">Make an
-      appointment
-    </button>
-    <ng-template #temp>
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Make an Appointment</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <img width="75px" class="img-fluid rounded-circle"
-             src="{{user.photoUrl}}" alt="user image">
-        &nbsp; <i class="fa-user fa font-xl"> {{user.firstName}} {{user.lastName}}</i>
-        &nbsp;&nbsp;&nbsp; <i class="icon-location-pin icons font-xl d-block mt-4"> {{user.city}} </i>
-        &nbsp;&nbsp;&nbsp;<i class="icon-phone icons font-xl  d-block mt-4"> {{user.phone}} </i>
-
-        <div class="form-group row">
-          <label class="col-md-3 col-form-label">Service</label>
-          <div class="col-md-9">
-            <p class="form-control-static">{{user.category}}</p>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-md-3 col-form-label">Date </label>
-          <div class="form-check"><input type="date" name="date" [(ngModel)]="appointmentDate"></div>
-        </div>
-
-
-        <div class="form-group row">
-          <label class="col-md-3 col-form-label">How do you want to your work to be done?</label>
-          <div class="col-md-9 col-form-label">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" value="radio1" id="radio1" name="radios"
-                     [(ngModel)]="contactWay" value="Pro comes to your given location">
-              <label class="form-check-label" for="radio1">
-                Pro comes to your given location
-              </label>
+<div class="container">
+  <div class="profile-wrapper">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="profileHead">
+          <div class="row">
+            <div class="col-md-3">
+              <img width="75px" class="img-fluid rounded-circle" src="{{user.photoUrl}}" alt="user image">
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" value="radio2" id="radio2" name="radios"
-                     [(ngModel)]="contactWay" value="You go to the pro's location">
-              <label class="form-check-label" for="radio2">
-                You go to the pro's location </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" value="radio2" id="radio3" name="radios"
-                     [(ngModel)]="contactWay" value="As pro suggests">
-              <label class="form-check-label" for="radio3">
-                As pro suggests </label>
+            <div class="info col-md-9">
+              <i class="fa-user fa font-xl"> {{user.firstName}} {{user.lastName}}</i>
+              <i class="icon-location-pin icons font-xl d-block mt-4"> {{user.city}} </i>
+              <i class="icon-phone icons font-xl  d-block mt-4"> {{user.phone}} </i>
             </div>
           </div>
-        </div>
-        <!--<div class="form-group row">-->
-        <!--<label class="col-md-3 col-form-label" for="file-multiple-input">Multiple File input</label>-->
-        <!--<div class="col-md-9">-->
-        <!--<input type="file" id="file-multiple-input" name="file-multiple-input" multiple="">-->
-        <!--</div>-->
-        <!--</div>-->
+          <div class="row">
+            <div class="col-md-12">
+              <p class="about">About</p>
+            </div>
+            <div class="profileBody col-md-12">
+              <b>About this pro</b><br>
+              <div class="bio">
+                <p>
+                  Bio goes here
+                </p>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <button (click)="startProject(temp)" data-toggle="modal"
+                          class="btn btn-outline-primary appointmentBtn">
+                    Make an appointment
+                  </button>
+                  <ng-template #temp>
+                    <div class="modal-header">
+                      <h4 class="modal-title pull-left">Make an Appointment</h4>
+                      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <img width="75px" class="img-fluid rounded-circle"
+                           src="{{user.photoUrl}}" alt="user image">
+                      &nbsp; <i class="fa-user fa font-xl"> {{user.firstName}} {{user.lastName}}</i>
+                      &nbsp;&nbsp;&nbsp; <i class="icon-location-pin icons font-xl d-block mt-4"> {{user.city}} </i>
+                      &nbsp;&nbsp;&nbsp;<i class="icon-phone icons font-xl  d-block mt-4"> {{user.phone}} </i>
 
-        <div class="form-group row">
-          <label class="col-md-3 col-form-label">Additional Note</label>
-          <div class="col-md-9">
-            <textarea [(ngModel)]="note"></textarea>
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Service</label>
+                        <div class="col-md-9">
+                          <p class="form-control-static">{{user.category}}</p>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Date </label>
+                        <div class="form-check"><input type="date" name="date" [(ngModel)]="appointmentDate"></div>
+                      </div>
+
+
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">How do you want to your work to be done?</label>
+                        <div class="col-md-9 col-form-label">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" value="radio1" id="radio1" name="radios"
+                                   [(ngModel)]="contactWay" value="Pro comes to your given location">
+                            <label class="form-check-label" for="radio1">
+                              Pro comes to your given location
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" value="radio2" id="radio2" name="radios"
+                                   [(ngModel)]="contactWay" value="You go to the pro's location">
+                            <label class="form-check-label" for="radio2">
+                              You go to the pro's location </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" value="radio2" id="radio3" name="radios"
+                                   [(ngModel)]="contactWay" value="As pro suggests">
+                            <label class="form-check-label" for="radio3">
+                              As pro suggests </label>
+                          </div>
+                        </div>
+                      </div>
+                      <!--<div class="form-group row">-->
+                      <!--<label class="col-md-3 col-form-label" for="file-multiple-input">Multiple File input</label>-->
+                      <!--<div class="col-md-9">-->
+                      <!--<input type="file" id="file-multiple-input" name="file-multiple-input" multiple="">-->
+                      <!--</div>-->
+                      <!--</div>-->
+
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Additional Note</label>
+                        <div class="col-md-9">
+                          <textarea [(ngModel)]="note"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="upload-group">
+                          Upload File
+                          <input type="file" class="upload-group" id="file" (change)="onFileSelected($event)">
+                        </label>
+                      </div>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalRef.hide()">
+                        Close
+                      </button>
+                      <button type="button" class="btn btn-primary" (click)="confirmAppointment()">Confirm Appointment
+                      </button>
+                    </div>
+                  </ng-template>
+                </div>
+                <div class="col-md-6">
+                  <button (click)="openModal(template)" data-toggle="modal"
+                          class="btn btn-outline-primary contactBtn">
+                    Contact this
+                    pro
+                  </button>
+
+                  <ng-template #template>
+                    <div class="modal-header">
+                      <h4 class="modal-title pull-left">Send Message</h4>
+                      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Send your queries or information to your pro: {{user.firstName}} {{user.lastName}}</p>
+                      <input class="form-control input-lg" placeholder="Enter Message Title" [(ngModel)]="msgTitle"
+                             name="msgTitle"
+                             type="text"><b></b>
+                      <input class="form-control input-lg" placeholder="Type your message here" [(ngModel)]="message"
+                             name="message"
+                             type="text">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalRef.hide()">
+                        Close
+                      </button>
+                      <button type="button" class="btn btn-primary" (click)="contactPro()">Send Message</button>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+
+              <p class="position-relative about rev">Reviews and rating</p>
+              <div>
+                <div class="reviewRating" *ngIf="isLoggedIn">
+                  <input type="text" class="commentBox" placeholder="Write your comments here" [(ngModel)]="comment">
+                  <button class="btn btn-outline-secondary btn-sm">Cancel</button>
+                  <button class="btn btn-primary btn-sm" (click)="makeComment()">Comment</button>
+
+                  <div class="star-rating" style="width: 190px;">
+                    <div class="star-rating__wrap">
+                      <input class="star-rating__input" id="star-rating-5" type="radio" name="rating" value="5">
+                      <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5"
+                             title="5 out of 5 stars"></label>
+                      <input class="star-rating__input" id="star-rating-4" type="radio" name="rating" value="4"
+                             [(ngModel)]="rating">
+                      <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4"
+                             title="4 out of 5 stars"></label>
+                      <input class="star-rating__input" id="star-rating-3" type="radio" name="rating" value="3"
+                             [(ngModel)]="rating">
+                      <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3"
+                             title="3 out of 5 stars"></label>
+                      <input class="star-rating__input" id="star-rating-2" type="radio" name="rating" value="2"
+                             [(ngModel)]="rating">
+                      <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2"
+                             title="2 out of 5 stars"></label>
+                      <input class="star-rating__input" id="star-rating-1" type="radio" name="rating" value="1"
+                             [(ngModel)]="rating">
+                      <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 out of 5 stars"
+                             (onclick)="makeRating('5')"></label>
+
+
+                    </div>
+                  </div>
+                  <app-spinner *ngIf="loadSpinner"></app-spinner>
+
+                </div>
+
+                <div *ngFor="let cmt of allComments">
+                  <img width="40px" class="img-fluid rounded-circle float-left"
+                       src="{{cmt.photoUrl}}" alt="user image">
+                  <b> &nbsp; {{cmt.fullName}} </b> <span>{{cmt.date |date}} </span> <br>
+                  &nbsp;&nbsp;{{cmt.comment}}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="form-group row">
-          <label class="upload-group">
-            Upload File
-            <input type="file" class="upload-group" id="file" (change)="onFileSelected($event)">
-          </label>
-        </div>
-
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalRef.hide()">Close</button>
-        <button type="button" class="btn btn-primary" (click)="confirmAppointment()">Confirm Appointment</button>
-      </div>
-    </ng-template>
-
-    <div class="col-6 text-right">
-      <!--modal-->
-      <button (click)="openModal(template)" data-toggle="modal" class="btn btn-outline-primary contactBtn">Contact this
-        pro
-      </button>
-
-      <ng-template #template>
-        <div class="modal-header">
-          <h4 class="modal-title pull-left">Send Message</h4>
-          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-          </button>
+      <div class="col-md-3">
+        <div class="sideBox">
+          <b>What to expect next?</b>
+          <p>Fill the form and tell the pro what you are looking for.</p><br>
+          <p>Book when ready</p>
+          <p>Securely book this pro on Link It</p>
+          <hr>
+          <button (click)="contactPro()" class="btn btn-primary">Contact this pro</button>
         </div>
-        <div class="modal-body">
-          <p>Send your queries or information to your pro: {{user.firstName}} {{user.lastName}}</p>
-          <input class="form-control input-lg" placeholder="Enter Message Title" [(ngModel)]="msgTitle" name="msgTitle"
-                 type="text"><b></b>
-          <input class="form-control input-lg" placeholder="Type your message here" [(ngModel)]="message" name="message"
-                 type="text">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalRef.hide()">Close</button>
-          <button type="button" class="btn btn-primary" (click)="contactPro()">Send Message</button>
-        </div>
-      </ng-template>
-      <p class="position-relative about rev">Reviews and rating</p>
-
-      <!--modal end-->
-    </div>
-  </div>
-
-
-  <div class="sideBox">
-    <b>What to expect next?</b>
-    <p>Fill the form and tell the pro what you are looking for.</p><br>
-    <p>Book when ready</p>
-    <p>Securely book this pro on Link It</p>
-    <hr>
-    <button (click)="contactPro()" class="btn btn-primary">Contact this pro</button>
-
-
-  </div>
-
-
-  <div class="reviewRating" *ngIf="isLoggedIn">
-    <input type="text" class="commentBox" placeholder="Write your comments here" [(ngModel)]="comment">
-    <button class="btn btn-outline-secondary btn-sm">Cancel</button>
-    <button class="btn btn-primary btn-sm" (click)="makeComment()">Comment</button>
-
-    <div class="star-rating" style="width: 190px;">
-      <div class="star-rating__wrap">
-        <input class="star-rating__input" id="star-rating-5" type="radio" name="rating" value="5">
-        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5" title="5 out of 5 stars"></label>
-        <input class="star-rating__input" id="star-rating-4" type="radio" name="rating" value="4" [(ngModel)]="rating">
-        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4" title="4 out of 5 stars"></label>
-        <input class="star-rating__input" id="star-rating-3" type="radio" name="rating" value="3" [(ngModel)]="rating">
-        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3" title="3 out of 5 stars"></label>
-        <input class="star-rating__input" id="star-rating-2" type="radio" name="rating" value="2" [(ngModel)]="rating">
-        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2" title="2 out of 5 stars"></label>
-        <input class="star-rating__input" id="star-rating-1" type="radio" name="rating" value="1" [(ngModel)]="rating">
-        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 out of 5 stars"
-               (onclick)="makeRating('5')"></label>
-
-
       </div>
     </div>
-    <app-spinner *ngIf="loadSpinner"></app-spinner>
-
   </div>
-
-  <div class="col-sm-6 col-md-4 position-relative" *ngFor="let cmt of allComments" style="    bottom: 245px;
-    left: 445px;">
-
-    <img width="40px" class="img-fluid rounded-circle float-left"
-         src="{{cmt.photoUrl}}" alt="user image">
-    <b> &nbsp; {{cmt.fullName}} </b> <span>{{cmt.date |date}} </span> <br>
-    &nbsp;&nbsp;{{cmt.comment}}
-  </div>
-
 </div>
+
 
 <!--<button class="btn btn-primary" (click)="fileInput.click()">Click</button>-->
 <!--<input #fileInput type="file" (change)="chooseFiles($event)" style="display:none;" />-->

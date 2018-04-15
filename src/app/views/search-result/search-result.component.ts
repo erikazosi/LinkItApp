@@ -74,7 +74,7 @@ export class SearchResultComponent implements OnInit {
   findProf(category, finderAddress) {
     this.query.orderByChild('category')
       .startAt(category)
-      .on('child_added', function (snap) {
+      .on('child_added', (function (snap) {
         var user = snap.val();
         if (user.address) {
           if (user.address == finderAddress)
@@ -83,13 +83,15 @@ export class SearchResultComponent implements OnInit {
 
         }
         else {
+          // alert(category);
           this.findProWOAddress(category);
         }
-      }).bind(this);
+      }).bind(this));
   }
 
 
   findProWOAddress(category) {
+    // alert(category);
     this.query.orderByChild('category')
       .equalTo(category)
       .on('child_added', (function (snap) {

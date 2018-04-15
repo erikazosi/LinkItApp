@@ -1,11 +1,11 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, TemplateRef} from '@angular/core';
 import * as firebase from 'firebase/app';
 import {UserService} from '../../model/user/user.service';
-import {AppHeaderComponent} from '../../components/app-header';
 import {BsModalRef} from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {Time} from '@angular/common';
 
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-projects',
@@ -13,52 +13,49 @@ import {Time} from '@angular/common';
   styleUrls: ['./projects.component.css']
 
 })
+
+
 export class ProjectsComponent implements OnInit {
   modalRef: BsModalRef;
-  newProjects: Number;
   fullName: String;
   email: String;
   appointmentTime: Time;
   allProject = [];
   noTime: Boolean = false;
   currentUser = firebase.auth().currentUser;
+  p: number = 1;
+  filter: any;
+  key: string = 'name'; //set default
+  reverse: boolean = false;
 
-  constructor(private userSvc: UserService, private modalService: BsModalService) {
+  sort(key) {
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
+
+  constructor(private userSvc: UserService, private modalService: BsModalService, private chRef: ChangeDetectorRef) {
+
     this.changeNewProjectStatus();
-
-    this.getAllProjects();
   }
 
   ngOnInit() {
+
+    this.getAllProjects();
+
   }
 
+
   getAllProjects() {
+    // <script>
+
     firebase.database().ref('projects/').orderByChild('appointmentFor').equalTo(this.currentUser.uid).on('child_added', (function (snap) {
       if (snap.val().status != 'deleted')
         this.allProject.push({'appointmentId': snap.key, ...snap.val()});
 
-
-
     }).bind(this));
 
-  }
 
-  // countNewProjects() {
-  //   var currentUser = firebase.auth().currentUser;
-  //   var count = 0;
-  //
-  //   firebase.database().ref('projects/').orderByChild('appointmentFor')
-  //     .equalTo(currentUser.uid).on('child_added', (function (snap) {
-  //     var data = snap.val();
-  //
-  //     if (data.status == 'new') {
-  //
-  //       count++;
-  //
-  //     }
-  //   }).bind(this));
-  //   this.newProjects = count;
-  // }s
+  }
 
   changeNewProjectStatus() {
 

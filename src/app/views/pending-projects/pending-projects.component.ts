@@ -16,6 +16,15 @@ export class PendingProjectsComponent implements OnInit {
   email: String;
   allProject = [];
   currentUser = firebase.auth().currentUser;
+  p: number = 1;
+  filter: any;
+  key: string = 'name'; //set default
+  reverse: boolean = false;
+
+  sort(key) {
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
 
   constructor(private userSvc: UserService, private modalService: BsModalService) {
   }

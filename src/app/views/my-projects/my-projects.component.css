@@ -1,8 +1,5 @@
-.projectNav {
-  width: 400px;
-  height: 415px;
-  position: absolute;
-  top: 55px;
+.projectNav{
+  width: 100%;
   padding-left: 7px;
   border-right: 1px solid #ebedee;
   font-size: 17px;
@@ -10,35 +7,18 @@
   /*-webkit-box-shadow: 5px 5px 15px rgba(0,0,0,0.4);*/
   /*-moz-box-shadow: 5px 5px 15px rgba(0,0,0,0.4);*/
 }
+.projectNav h3 {
+  padding: 15px;
+}
 
-.nav-item {
+.nav-item{
   background-color: white;
   border-bottom: 1px solid #ebedee;
   border-top: 1px solid #ebedee;
 }
 
-.angle1 {
-  padding-left: 266px;
 
+.projectTable table {
+  width: 100%;
 }
 
-.angle2 {
-  padding-left: 228px;
-
-}
-
-.angle3 {
-  padding-left: 245px;
-
-}
-
-.projectTable {
-  background-color: white;
-  width: 515px;
-  position: fixed;
-  top: 102px;
-  left: 600px;
-  height: 440px;
-  overflow-y: scroll;
-
-}

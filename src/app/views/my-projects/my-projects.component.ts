@@ -23,6 +23,15 @@ export class MyProjectsComponent implements OnInit {
   lastKey = '';
   finished = false;
   current: any;
+  p: number = 1;
+  filter: any;
+  key: string = 'name'; //set default
+  reverse: boolean = false;
+
+  sort(key) {
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
 
   constructor(private db: AngularFireDatabase, @Inject(LOCAL_STORAGE) private storage: WebStorageService) {
   }
