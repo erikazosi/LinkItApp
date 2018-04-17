@@ -9,6 +9,7 @@ import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {LOCAL_STORAGE, WebStorageService} from 'angular-webstorage-service';
 import {AngularFireStorage} from 'angularfire2/storage';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-profile',
@@ -30,7 +31,7 @@ export class ProfileComponent implements OnInit {
   name: String;
   location: String;
   phone: String;
-  email: String
+  email: String;
   photoUrl: String;
   id: String;
   uid: String;
@@ -54,6 +55,9 @@ export class ProfileComponent implements OnInit {
   contactWay: String;
   scheduleTime: String;
 
+  averageRating: number;
+  allRatings = [];
+
   constructor(private route: ActivatedRoute, public router: Router,
               private modalService: BsModalService,
               private userSvc: UserService, private db: AngularFireDatabase,
@@ -72,13 +76,12 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
-      this.fetchUserDataByKey(this.id);
-      this.getAllComments(this.id);
-      this.getBusinessTime();
+
 
     })
-
-
+    this.fetchUserDataByKey(this.id);
+    this.getAllComments(this.id);
+    // this.getAverageRating(this.id);
   }
 
   fetchUserDataByKey(key) {
@@ -155,12 +158,12 @@ export class ProfileComponent implements OnInit {
     // location.reload();
   }
 
-  makeRating(value) {
-    console.log(this.rating);
+  makeRating() {
+    //https://github.com/MurhafSousli/ngx-bar-rating
     const rate = this.db.list('/rating');
     var currentUser = firebase.auth().currentUser.uid;
     rate.push({
-      'rate': value,
+      'rate': this.rating,
       'ratedBy': currentUser,
       'rateFor': this.id,
       'date': Date.now()
@@ -214,7 +217,6 @@ export class ProfileComponent implements OnInit {
             'appointmentBy': currentUser,
             'createdDate': Date.now(),
             'appointmentDate': this.appointmentDate,
-            'appointmentTime': this.appointmentTime,
             'note': this.note,
             'contactWay': this.contactWay,
             'additionalFile': downloadUrl,
@@ -238,7 +240,6 @@ export class ProfileComponent implements OnInit {
           'appointmentBy': currentUser,
           'createdDate': Date.now(),
           'appointmentDate': this.appointmentDate,
-          'appointmentTime': this.appointmentTime,
           'note': this.note,
           'contactWay': this.contactWay,
           'additionalFile': '',
@@ -260,17 +261,33 @@ export class ProfileComponent implements OnInit {
     this.fileUploaded = true;
   }
 
-  private getBusinessTime() {
-    firebase.database().ref('schedule/').orderByValue().once('child_added', (function (res) {
+  // getAverageRating(id) {
+  //   var rates = 0;
+  //
+  //   var ref = firebase.database().ref('rating').orderByChild('rateFor').equalTo(id).on('child_added', (function (res) {
+  //     this.allRatings.push(res.val().rate);
+  //     res.forEach(function (snapShot) {
+  //       rates += snapShot.val().rate;
+  //     })
+  //     this.averageRating = rates / this.allRatings.length;
+  //
+  //   }).bind(this))
+  //
+  // }
 
-      if (res != null) {
-        if (res.key == this.uid) {
-          this.scheduleTime.push(res.val());
-        }
-      }
 
-
-    }).bind(this));
-
-  }
+//
+// private getBusinessTime() {
+//   firebase.database().ref('schedule/').orderByValue().once('child_added', (function (res) {
+//
+//     if (res != null) {
+//       if (res.key == this.uid) {
+//         this.scheduleTime.push(res.val());
+//       }
+//     }
+//
+//
+//   }).bind(this));
+//
+// }
 }

@@ -28,6 +28,7 @@ export class AuthService {
               private db: AngularFireDatabase,
               private router: Router,
               @Inject(LOCAL_STORAGE) private storage: WebStorageService) {
+
     this.afAuth.authState
       .do(user => {
         firebase.database().ref('user').orderByChild('uid').equalTo(user.uid)

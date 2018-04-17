@@ -45,20 +45,21 @@ export class AppHeaderComponent {
     this.role = this.storage.get('role');
     if (this.role == 'pro') {
       this.countNewProjects();
+      this.countNewMessage();
+
 
       this.isPro = true;
     }
     else if (this.role == 'client') {
       this.countAcceptedProject();
+      this.countNewMessage();
+
       this.isClient = true;
-    } else {
-      this.isAdmin = true;
     }
 
   }
 
   ngOnInit() {
-    this.countNewMessage();
   }
 
   logout() {

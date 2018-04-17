@@ -1,4 +1,3 @@
-
 <div class="container">
   <div class="profile-wrapper">
     <div class="row">
@@ -151,31 +150,37 @@
                   <button class="btn btn-outline-secondary btn-sm">Cancel</button>
                   <button class="btn btn-primary btn-sm" (click)="makeComment()">Comment</button>
 
-                  <div class="star-rating" style="width: 190px;">
-                    <div class="star-rating__wrap">
-                      <input class="star-rating__input" id="star-rating-5" type="radio" name="rating" value="5">
-                      <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5"
-                             title="5 out of 5 stars"></label>
-                      <input class="star-rating__input" id="star-rating-4" type="radio" name="rating" value="4"
-                             [(ngModel)]="rating">
-                      <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4"
-                             title="4 out of 5 stars"></label>
-                      <input class="star-rating__input" id="star-rating-3" type="radio" name="rating" value="3"
-                             [(ngModel)]="rating">
-                      <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3"
-                             title="3 out of 5 stars"></label>
-                      <input class="star-rating__input" id="star-rating-2" type="radio" name="rating" value="2"
-                             [(ngModel)]="rating">
-                      <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2"
-                             title="2 out of 5 stars"></label>
-                      <input class="star-rating__input" id="star-rating-1" type="radio" name="rating" value="1"
-                             [(ngModel)]="rating">
-                      <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 out of 5 stars"
-                             (onclick)="makeRating('5')"></label>
+                  <form #form="ngForm">
+                    <bar-rating name="rating" [(ngModel)]="rating" [theme]="'fontawesome'" [max]="5"
+                                (ngModelChange)="makeRating()"></bar-rating>
+                  </form>
+
+                  <!--<div class="star-rating" style="width: 190px;">-->
+                  <!--<div class="star-rating__wrap">-->
+                  <!--<input class="star-rating__input" id="star-rating-5" type="radio" name="rating" value="5"-->
+                  <!--[(ngModel)]="rating">-->
+                  <!--<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5"-->
+                  <!--title="5 out of 5 stars"></label>-->
+                  <!--<input class="star-rating__input" id="star-rating-4" type="radio" name="rating" value="4"-->
+                  <!--[(ngModel)]="rating">-->
+                  <!--<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4"-->
+                  <!--title="4 out of 5 stars"></label>-->
+                  <!--<input class="star-rating__input" id="star-rating-3" type="radio" name="rating" value="3"-->
+                  <!--[(ngModel)]="rating">-->
+                  <!--<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3"-->
+                  <!--title="3 out of 5 stars"></label>-->
+                  <!--<input class="star-rating__input" id="star-rating-2" type="radio" name="rating" value="2"-->
+                  <!--[(ngModel)]="rating">-->
+                  <!--<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2"-->
+                  <!--title="2 out of 5 stars"></label>-->
+                  <!--<input class="star-rating__input" id="star-rating-1" type="radio" name="rating" value="1"-->
+                  <!--[(ngModel)]="rating">-->
+                  <!--<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 out of 5 stars"-->
+                  <!--(onclick)="makeRating('5')"></label>-->
 
 
-                    </div>
-                  </div>
+                  <!--</div>-->
+                  <!--</div>-->
                   <app-spinner *ngIf="loadSpinner"></app-spinner>
 
                 </div>

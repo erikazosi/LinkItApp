@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../providers/authentication/auth.service';
 import {Router} from '@angular/router';
 import * as firebase from 'firebase/app';
-import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
 import {User} from '../../model/user/user.model';
 import {UserService} from '../../model/user/user.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -17,6 +17,7 @@ export class SignupComponent implements OnInit {
   firstName: String;
   lastName: String;
   currentUser = firebase.auth().currentUser;
+  singupForm: FormGroup;
 
 
   user: User = new User();

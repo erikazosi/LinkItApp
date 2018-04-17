@@ -16,6 +16,7 @@ import {InboxComponent} from './views/inbox/inbox.component';
 import {MyProfileComponent} from './views/my-profile/my-profile.component';
 import {MyProjectsComponent} from './views/my-projects/my-projects.component';
 import {PendingProjectsComponent} from './views/pending-projects/pending-projects.component';
+import {GoogleMapComponent} from './views/google-map/google-map.component';
 
 
 export const appRoutes: Routes = [
@@ -28,6 +29,7 @@ export const appRoutes: Routes = [
   {path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: '', component: ExploreComponent},
   {path: 'explore', component: ExploreComponent},
+  {path: 'map', component: GoogleMapComponent},
   {path: 'searchResult/:category', component: SearchResultComponent},
   {path: 'myProfile', component: MyProfileComponent, canActivate: [AuthGuard]},
   {path: 'myProjects', component: MyProjectsComponent, canActivate: [AuthGuard]},
