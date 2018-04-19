@@ -85,3 +85,14 @@ html, body {
     }
   }
 }
+.alert {
+  background: #f2edda;
+  padding: 7px;
+  font-size: .9em;
+  margin:10px;
+  display: inline-block;
+  animation: 2s alertAnim forwards;
+}
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="container">
   <div class="profile-wrapper">
     <div class="row">
@@ -9,7 +10,7 @@
             </div>
             <div class="info col-md-9">
               <i class="fa-user fa font-xl"> {{user.firstName}} {{user.lastName}}</i>
-              <i class="icon-location-pin icons font-xl d-block mt-4"> {{user.city}} </i>
+              <i class="icon-location-pin icons font-xl d-block mt-4"> {{address}} </i>
               <i class="icon-phone icons font-xl  d-block mt-4"> {{user.phone}} </i>
             </div>
           </div>
@@ -20,9 +21,7 @@
             <div class="profileBody col-md-12">
               <b>About this pro</b><br>
               <div class="bio">
-                <p>
-                  Bio goes here
-                </p>
+                <textarea value="{{description}}"></textarea>
               </div>
               <div class="row">
                 <div class="col-md-6">
@@ -41,7 +40,7 @@
                       <img width="75px" class="img-fluid rounded-circle"
                            src="{{user.photoUrl}}" alt="user image">
                       &nbsp; <i class="fa-user fa font-xl"> {{user.firstName}} {{user.lastName}}</i>
-                      &nbsp;&nbsp;&nbsp; <i class="icon-location-pin icons font-xl d-block mt-4"> {{user.city}} </i>
+                      &nbsp;&nbsp;&nbsp; <i class="icon-location-pin icons font-xl d-block mt-4"> {{address}} </i>
                       &nbsp;&nbsp;&nbsp;<i class="icon-phone icons font-xl  d-block mt-4"> {{user.phone}} </i>
 
                       <div class="form-group row">
@@ -149,41 +148,88 @@
                   <input type="text" class="commentBox" placeholder="Write your comments here" [(ngModel)]="comment">
                   <button class="btn btn-outline-secondary btn-sm">Cancel</button>
                   <button class="btn btn-primary btn-sm" (click)="makeComment()">Comment</button>
-
-                  <form #form="ngForm">
+                  <form #form="ngForm" class="float-md-right" style="    /* left: -77px; */
+    right: 115px;
+    bottom: 10px;
+    /* top: -8px; */
+    position: relative;">
                     <bar-rating name="rating" [(ngModel)]="rating" [theme]="'fontawesome'" [max]="5"
                                 (ngModelChange)="makeRating()"></bar-rating>
                   </form>
-
-                  <!--<div class="star-rating" style="width: 190px;">-->
-                  <!--<div class="star-rating__wrap">-->
-                  <!--<input class="star-rating__input" id="star-rating-5" type="radio" name="rating" value="5"-->
-                  <!--[(ngModel)]="rating">-->
-                  <!--<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5"-->
-                  <!--title="5 out of 5 stars"></label>-->
-                  <!--<input class="star-rating__input" id="star-rating-4" type="radio" name="rating" value="4"-->
-                  <!--[(ngModel)]="rating">-->
-                  <!--<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4"-->
-                  <!--title="4 out of 5 stars"></label>-->
-                  <!--<input class="star-rating__input" id="star-rating-3" type="radio" name="rating" value="3"-->
-                  <!--[(ngModel)]="rating">-->
-                  <!--<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3"-->
-                  <!--title="3 out of 5 stars"></label>-->
-                  <!--<input class="star-rating__input" id="star-rating-2" type="radio" name="rating" value="2"-->
-                  <!--[(ngModel)]="rating">-->
-                  <!--<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2"-->
-                  <!--title="2 out of 5 stars"></label>-->
-                  <!--<input class="star-rating__input" id="star-rating-1" type="radio" name="rating" value="1"-->
-                  <!--[(ngModel)]="rating">-->
-                  <!--<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 out of 5 stars"-->
-                  <!--(onclick)="makeRating('5')"></label>-->
-
-
-                  <!--</div>-->
-                  <!--</div>-->
-                  <app-spinner *ngIf="loadSpinner"></app-spinner>
-
                 </div>
+
+
+                <form #form="ngForm">
+                  <bar-rating name="rating" [rate]="averageRating" [theme]="'fontawesome'" [max]="5"
+                              [readOnly]="true"></bar-rating>
+                </form>
+
+
+                <div class="btn-group" dropdown style="position: relative;
+    bottom: 38px;
+    left: 106px;">
+                  <button dropdownToggle type="button" class="dropdown-toggle">
+                  </button>
+                  <ul *dropdownMenu class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item">
+                      <ngx-charts-bar-horizontal
+                        [view]="view"
+                        [scheme]="colorScheme"
+                        [results]="single"
+                        [gradient]="gradient"
+                        [xAxis]="showXAxis"
+                        [yAxis]="showYAxis"
+                        [showXAxisLabel]="showXAxisLabel"
+                        [showYAxisLabel]="showYAxisLabel"
+                        [xAxisLabel]="xAxisLabel"
+                        [yAxisLabel]="yAxisLabel"
+                        [xScaleMax]="xScaleMax"
+                        [barPadding]="barPadding"
+                        (select)="onSelect($event)">
+                      </ngx-charts-bar-horizontal>
+                    </a></li>
+
+                  </ul>
+                </div>
+
+                <!--<div class="dropdown">-->
+
+                <!--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+                <!--<a class="dropdown-item" disabled>   </a>-->
+
+
+                <!--</div>-->
+                <!--</div>-->
+
+
+                <!--<div class="star-rating" style="width: 190px;">-->
+                <!--<div class="star-rating__wrap">-->
+                <!--<input class="star-rating__input" id="star-rating-5" type="radio" name="rating" value="5"-->
+                <!--[(ngModel)]="rating">-->
+                <!--<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5"-->
+                <!--title="5 out of 5 stars"></label>-->
+                <!--<input class="star-rating__input" id="star-rating-4" type="radio" name="rating" value="4"-->
+                <!--[(ngModel)]="rating">-->
+                <!--<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4"-->
+                <!--title="4 out of 5 stars"></label>-->
+                <!--<input class="star-rating__input" id="star-rating-3" type="radio" name="rating" value="3"-->
+                <!--[(ngModel)]="rating">-->
+                <!--<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3"-->
+                <!--title="3 out of 5 stars"></label>-->
+                <!--<input class="star-rating__input" id="star-rating-2" type="radio" name="rating" value="2"-->
+                <!--[(ngModel)]="rating">-->
+                <!--<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2"-->
+                <!--title="2 out of 5 stars"></label>-->
+                <!--<input class="star-rating__input" id="star-rating-1" type="radio" name="rating" value="1"-->
+                <!--[(ngModel)]="rating">-->
+                <!--<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 out of 5 stars"-->
+                <!--(onclick)="makeRating('5')"></label>-->
+
+
+                <!--</div>-->
+                <!--</div>-->
+                <app-spinner *ngIf="loadSpinner"></app-spinner>
+
 
                 <div *ngFor="let cmt of allComments">
                   <img width="40px" class="img-fluid rounded-circle float-left"
@@ -194,6 +240,15 @@
               </div>
             </div>
           </div>
+        </div>
+        <div *ngIf="lati && longi">
+          <agm-map [latitude]="lati" [longitude]="longi" [scrollwheel]="false">
+            <agm-marker [latitude]="lati" [longitude]="longi">
+              <agm-info-window>
+                <h3>You are here</h3>
+              </agm-info-window>
+            </agm-marker>
+          </agm-map>
         </div>
       </div>
       <div class="col-md-3">

@@ -8,27 +8,27 @@
   </button>
   <!--<div class="navForClient d-flex" *ngIf="isLoggedIn && isAdmin">-->
 
-    <!--<div>-->
-      <!--<ul class="style-unstyled">-->
-        <!--<li><a href="#"> Explore </a><br></li>-->
-        <!--<li><a href="#"> Projects </a><br></li>-->
-        <!--<li><a href="#"> Messages </a><br></li>-->
-        <!--<li class="nav-item dropdown" dropdown placement="bottom right">-->
-          <!--<a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"-->
-             <!--aria-expanded="false" dropdownToggle (click)="false">-->
-            <!--<img src="assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com"/>-->
-          <!--</a>-->
-          <!--<div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">-->
-            <!--<div class="dropdown-header text-center"><strong>Settings</strong></div>-->
-            <!--<a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>-->
-            <!--<a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>-->
-            <!--<div class="divider"></div>-->
-            <!--<a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock account</a>-->
-            <!--<a class="dropdown-item" href="javascript:;" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>-->
-          <!--</div>-->
-        <!--</li>-->
-      <!--</ul>-->
-    <!--</div>-->
+  <!--<div>-->
+  <!--<ul class="style-unstyled">-->
+  <!--<li><a href="#"> Explore </a><br></li>-->
+  <!--<li><a href="#"> Projects </a><br></li>-->
+  <!--<li><a href="#"> Messages </a><br></li>-->
+  <!--<li class="nav-item dropdown" dropdown placement="bottom right">-->
+  <!--<a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"-->
+  <!--aria-expanded="false" dropdownToggle (click)="false">-->
+  <!--<img src="assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com"/>-->
+  <!--</a>-->
+  <!--<div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">-->
+  <!--<div class="dropdown-header text-center"><strong>Settings</strong></div>-->
+  <!--<a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>-->
+  <!--<a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>-->
+  <!--<div class="divider"></div>-->
+  <!--<a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock account</a>-->
+  <!--<a class="dropdown-item" href="javascript:;" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>-->
+  <!--</div>-->
+  <!--</li>-->
+  <!--</ul>-->
+  <!--</div>-->
   <!--</div>-->
 
   <div class="navForViewer d-flex" *ngIf="!isLoggedIn && !isAdmin && !isPro && !isClient">
@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <div class="navForViewer"  *ngIf="isLoggedIn && (isPro|| isClient)">
+  <div class="navForViewer" *ngIf="isLoggedIn && (isPro|| isClient)">
     <div style="font-weight: bold; font-size:15px">
       <ul class="list-unstyled">
         <li><a href="#/explore"> Explore </a><br></li>
@@ -53,25 +53,28 @@
         </li>
 
         <li><a href="#/inbox"> Messages <span class="badge badge-pill badge-warning">{{newMsg}}</span></a><br></li>
-        <li>
-          <div class="nav-item dropdown pull-right user-image-icon" dropdown placement="bottom right">
-            <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-               aria-expanded="false" dropdownToggle (click)="false">
-              <img src="{{photoUrl}}" class="img-avatar" alt="user image"/>
-            </a>
-        <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
-          <div class="dropdown-header text-center"><strong>Settings</strong></div>
-          <a class="dropdown-item" href="#/myProfile"><i class="fa fa-user"></i> Profile</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>
-          <div class="divider"></div>
-          <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock account</a>
-          <a class="dropdown-item" href="javascript:;" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>
-        </div>
-    </div>
-    </li>
-    </ul>
+        <li><a href="javascript:;" (click)="logout()">Logout</a></li>
 
-  </div>
+
+        <!--<li>-->
+          <!--<div class="nav-item dropdown pull-right user-image-icon" dropdown placement="bottom right">-->
+            <!--<a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"-->
+               <!--aria-expanded="false" dropdownToggle (click)="false">-->
+              <!--<img src="{{photoUrl}}" class="img-avatar" alt="user image"/>-->
+            <!--</a>-->
+            <!--<div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">-->
+              <!--<div class="dropdown-header text-center"><strong>Settings</strong></div>-->
+              <!--<a class="dropdown-item" href="#/myProfile"><i class="fa fa-user"></i> Profile</a>-->
+              <!--<a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>-->
+              <!--<div class="divider"></div>-->
+              <!--<a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock account</a>-->
+              <!--<a class="dropdown-item" href="javascript:;" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</li>-->
+      </ul>
+
+    </div>
 
   </div>
 

@@ -3,7 +3,7 @@ import {UserService} from '../../model/user/user.service';
 import {User} from '../../model/user/user.model';
 import * as firebase from 'firebase/app';
 import {ActivatedRoute, Router} from '@angular/router';
-
+import * as geocoder from 'geocoder';
 
 @Component({
   selector: 'app-search-result',
@@ -21,6 +21,8 @@ export class SearchResultComponent implements OnInit {
   category: String;
   searchWord: String;
   searchResult = [];
+  filter: any;
+
   private basePath: string = 'user';
   query = firebase.database().ref('user');
   private sub: any;
@@ -92,14 +94,21 @@ export class SearchResultComponent implements OnInit {
 
   findProWOAddress(category) {
     // alert(category);
+    var geocode;
     this.query.orderByChild('category')
       .equalTo(category)
       .on('child_added', (function (snap) {
-        this.searchResult.push({_key: snap.key, ...snap.val()});
-        this.loadSpinner = false;
+        // Setting sensor to true
+        geocoder.reverseGeocode( snap.val().city.lati,snap.val().city.longi, (function ( err, data ) {
+          geocode = data.results[0].formatted_address;
+          this.searchResult.push({_key: snap.key,address:geocode, ...snap.val()});
+
+
+        }).bind(this));
 
 
       }).bind(this));
+    this.loadSpinner = false;
 
   }
 

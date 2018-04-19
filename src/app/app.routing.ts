@@ -26,7 +26,7 @@ export const appRoutes: Routes = [
   {path: 'proSignup', component: SignUpProComponent},
   {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]},
   {path: 'inbox', component: InboxComponent, canActivate: [AuthGuard]},
-  {path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'profile/:id', component: ProfileComponent},
   {path: '', component: ExploreComponent},
   {path: 'explore', component: ExploreComponent},
   {path: 'map', component: GoogleMapComponent},

@@ -1,5 +1,4 @@
 agm-map {
-  width: 50vw;
   height: 50vh;
   display: block;
   margin-left: auto;
@@ -8,5 +7,4 @@ agm-map {
 }
 
 .googleMapContainer{
-    margin-top: 500px;
   }

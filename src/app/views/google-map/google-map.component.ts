@@ -3,7 +3,7 @@ import {} from '@types/googlemaps';
 import {MapsAPILoader} from '@agm/core';
 import {FormControl} from '@angular/forms';
 
-import * as geocoder from 'geocoding';
+import * as geocoder from 'geocoder';
 
 @Component({
   selector: 'app-google-map',
@@ -20,17 +20,17 @@ export class GoogleMapComponent implements OnInit {
 
   constructor(private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone) {
-      geocoder.selectProvider("google",{"appid":"AIzaSyBNr4fXzeu9dIHYMhpfJwNaxFREya7VUzs"});
+      // geocoder.selectProvider("google",{"appid":"AIzaSyBNr4fXzeu9dIHYMhpfJwNaxFREya7VUzs"});
   }
 
   ngOnInit() {
-    this.zoom = 4;
+    this.zoom = 8;
     this.lati = 27.694467564694776;
     this.longi = 85.3143310546875;
   }
 
   search(){
-    geocoder.geocode(this.place, (err, data)=>{
+    geocoder.geocode(this.place+',Nepal', (err, data)=>{
       var geocode = data.results[0].geometry.location;
       this.longi = geocode.lng;
       this.lati = geocode.lat;

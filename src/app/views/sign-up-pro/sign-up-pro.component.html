@@ -1,110 +1,140 @@
-<div class="app flex-row align-items-center">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card mx-4">
-          <div class="card-body p-4 signupForm">
-            <h1>Register</h1>
-            <p class="text-muted">Create your account</p>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="icon-user"></i></span>
-              </div>
-              <input type="text" [(ngModel)]="user.firstName" class="form-control" placeholder="First Name" #name="ngModel">
-              <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
-                <!-- Required validation -->
-                <div *ngIf="name.errors.required">
-                  Name is required.
+<app-header></app-header>
+<form [formGroup]="signupProForm">
+  <div class="app flex-row align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card mx-4">
+            <div class="card-body p-4 signupForm">
+              <h1>Register</h1>
+              <p class="text-muted">Create your account</p>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-user"></i></span>
                 </div>
-              <input type="text" [(ngModel)]="user.lastName" class="form-control" placeholder="Last Name">
+                <input type="text" [(ngModel)]="user.firstName" class="form-control" formControlName="firstName"
+                       placeholder="First Name">
+                <input type="text" [(ngModel)]="user.lastName" class="form-control" formControlName="lastName"
+                       placeholder="Last Name">
 
-            </div>
-
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">@</span>
               </div>
-              <input type="email" [(ngModel)]="user.email" class="form-control" placeholder="Email">
-
-
-            </div>
-
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="icon-lock"></i></span>
+              <div class="alert"
+                   *ngIf="!signupProForm.controls['firstName'].valid && signupProForm.controls['firstName'].touched"><i
+                class="fa  fa-exclamation-circle"></i> Please enter valid first name.
               </div>
-              <input type="password" [(ngModel)]="user.password" class="form-control" placeholder="Password">
-              <input type="password" [(ngModel)]="repPassword" class="form-control" placeholder="Repeat password">
-            </div>
-
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="icon-user"></i></span>
+              <div class="alert"
+                   *ngIf="!signupProForm.controls['lastName'].valid && signupProForm.controls['lastName'].touched"><i
+                class="fa  fa-exclamation-circle"></i> Please enter valid last name.
               </div>
-              <input type="text" [(ngModel)]="user.phone" class="form-control" placeholder="Phone">
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">@</span>
+                </div>
+                <input type="email" [(ngModel)]="user.email" class="form-control" placeholder="Email"
+                       formControlName="email">
 
 
-            </div>
-
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="icon-user"></i></span>
               </div>
-              <input type="date" [(ngModel)]="user.dob" class="form-control" placeholder="Date of Birth">
-            </div>
-            <!--<div class="input-group mb-20">-->
-            <!--<div class="input-group-prepend">-->
-            <!--<span class="input-group-text"><i class="icon-user"></i></span>-->
+              <div class="alert"
+                   *ngIf="!signupProForm.controls['email'].valid && signupProForm.controls['email'].touched"><i
+                class="fa  fa-exclamation-circle"></i> Please enter valid email.
+              </div>
 
-            <!--&lt;!&ndash;<app-google-map></app-google-map>&ndash;&gt;-->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-lock"></i></span>
+                </div>
+                <input type="password" [(ngModel)]="user.password" class="form-control" placeholder="Password"
+                       formControlName="password">
+                <input type="password" [(ngModel)]="repPassword" class="form-control" placeholder="Repeat password"
+                       formControlName="confirmPassword">
+              </div>
+              <div class="alert"
+                   *ngIf="!signupProForm.controls['confirmPassword'].valid && signupProForm.controls['confirmPassword'].touched">
+                <i
+                  class="fa  fa-exclamation-circle"></i> Passwords don't match.
+              </div>
 
-            <!--</div>-->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-phone"></i></span>
+                </div>
+                <input type="tel" [(ngModel)]="user.phone" class="form-control"
+                       formControlName="phone" pattern='[\+]\d{3}\d{10}'
+                       title='Phone Number (Format: +9779800000000' placeholder='Phone Number (Format: +9779800000000'>
 
 
-            <div class="input-group mb-20">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="icon-user"></i></span>
+              </div>
 
-                <select [(ngModel)]="user.city" class="form-control form-control-sm">
-                  <option selected disabled>Choose City</option>
-                  <option *ngFor="let city of addressList" value="{{city}}">{{city}}</option>
+              <div class="alert"
+                   *ngIf="!signupProForm.controls['phone'].valid && signupProForm.controls['phone'].touched"><i
+                class="fa  fa-exclamation-circle"></i> Please enter valid phone number in format of +9779800000000 .
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-location-pin"></i></span>
+                </div>
+                <input type="text" [(ngModel)]="place" class="form-control" placeholder="Address"
+                       formControlName="address">
+                <input type="text" disabled class="form-control" value=",Nepal">
 
+              </div>
+              <div class="alert"
+                   *ngIf="!signupProForm.controls['address'].valid && signupProForm.controls['address'].touched"><i
+                class="fa  fa-exclamation-circle"></i> Please enter valid address.
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-note"></i></span>
+                </div>
+                <textarea class="form-control" placeholder="Tell us what makes you stand out"
+                          formControlName="description">
+              </textarea>
+                <div class="alert"
+                     *ngIf="!signupProForm.controls['description'].valid && signupProForm.controls['description'].touched">
+                  <i class="fa  fa-exclamation-circle"></i> You must specify a description that's between 30 and 500
+                  characters.
+                </div>
+              </div>
+
+
+              <!--<div *ngIf="lati && longi">-->
+              <!--<agm-map [latitude]="lati" [longitude]="longi" [scrollwheel]="false">-->
+              <!--<agm-marker [latitude]="lati" [longitude]="longi">-->
+              <!--<agm-info-window>-->
+              <!--<h3>You are here</h3>-->
+              <!--</agm-info-window>-->
+              <!--</agm-marker>-->
+              <!--</agm-map>-->
+              <!--</div>-->
+
+              <div class="input-group mb-20">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-list"> Select a Category</i></span>
+                </div>
+                <select class="form-control form-control-sm" [(ngModel)]="user.category" required>
+                  <option disabled selected="selected" style="display: none;text-align: center"> -- select a category
+                    --
+                  </option>
+                  <option *ngFor="let cat of categories" value="{{cat}}">{{cat}}</option>
                 </select>
-
               </div>
+              <p>Please make sure all the information you entered is accurate before submitting.
+              </p>
+              <button type="button" (click)="signupWithEmail(user.email,user.password,repPassword)"
+                      class="btn btn-block btn-primary" [disabled]="!signupProForm.valid">Create Account
+              </button>
+            </div>
 
-            </div>
-            <br>
-
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="icon-user"></i></span>
-              </div>
-              <input type="text" disabled class="form-control" placeholder="Nepal"
-                     value="Nepal">
-            </div>
-            <div class="input-group mb-20">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="icon-user"></i></span>
-              </div>
-              <select [(ngModel)]="user.category" class="form-control form-control-sm">
-                <option selected disabled>Choose Category</option>
-                <option *ngFor="let cat of categories" value="{{cat}}">{{cat}}</option>
-              </select>
-              <app-google-map></app-google-map>
-            </div>
 
           </div>
-          <!--<p>Please make sure all the information you entered <br> is accurate before submitting.-->
-          <!--</p>-->
-          <button type="button" (click)="signupWithEmail(user.email,user.password,repPassword)"
-                  class="btn btn-block btn-primary">Create Account
-          </button>
+
+
         </div>
-
-
       </div>
     </div>
   </div>
-</div>
 
+
+</form>

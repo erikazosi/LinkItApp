@@ -2,7 +2,7 @@ import {PageNotFoundComponent} from './views/page-not-found/page-not-found.compo
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import {AuthService} from './providers/authentication/auth.service';
 import {ModalModule} from 'ngx-bootstrap/modal';
 //firebases
@@ -51,6 +51,7 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {Ng2OrderModule} from 'ng2-order-pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {BarRatingModule} from 'ngx-bar-rating';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 
 const APP_COMPONENTS = [
@@ -67,12 +68,14 @@ const APP_COMPONENTS = [
     Ng2SearchPipeModule,
     Ng2OrderModule,
     NgxPaginationModule,
+    NgxChartsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),

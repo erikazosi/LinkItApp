@@ -2,9 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 // import {Subject} from 'rxjs/Subject';
 import * as firebase from 'firebase/app';
 import {UserService} from '../../model/user/user.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {SearchResultComponent} from '../search-result/search-result.component';
-import {Input} from '@angular/core';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -20,6 +18,7 @@ export class SearchComponent implements OnInit {
   searchResult = [];
   showList: Boolean = false;
   categories = [];
+  categoryLoaded: Boolean = true;
   constructor(@Inject(UserService) private userSvc: UserService, private router: Router) {
     this.getCategories()
   }
@@ -35,6 +34,8 @@ export class SearchComponent implements OnInit {
       if (data.val().parentId != 0) {
         data.forEach((res) => {
           this.categories.push(data.val().name);
+
+          this.categoryLoaded = false;
           console.log('categories fetched>');
 
           return true;

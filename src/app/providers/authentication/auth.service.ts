@@ -131,28 +131,34 @@ intervalId = setInterval(clearFunction, 3000)
   loginWithFacebook() {
     return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(function (result) {
       var user = firebase.auth().currentUser;
+      var data: Boolean = true;
+      // https://codereview.stackexchange.com/questions/97696/function-to-split-full-name-into-first-last
+      var userExist = this.userSvc.findUserByEmail(user.email).once('value', (function (snap) {
+        data = snap.exists();
 
-      var found = this.userSvc.findUserByEmail(user.email);
+        if (!data) {
+          var nameArr = user.displayName.split(/\s+/);
 
-      if (found.toString()) {
-        console.log(found.toString());
-      } else {
-        var nameArr = this.currentUser.displayName.split(/\s+/);
+          var firstName = nameArr.slice(0, -1).join(' ');
+          var lastName = nameArr.pop();
+          this.addUserToDb('', '', 'client', firstName, lastName);
 
-        var firstName = nameArr.slice(0, -1).join(' ');
-        var lastName = nameArr.pop();
-        this.addUserToDb('', '', 'client', firstName, lastName);
-      }
-    }).catch(function (error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
-    });
+        }
+      }).bind(this));
+
+
+    })
+      .catch(function (error) {
+
+        // Handle Errors here.
+        var errorCode = error.code;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
+
   }
 
   loginWithEmail(email, password) {

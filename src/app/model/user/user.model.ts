@@ -7,9 +7,10 @@ export class User{
   email: String;
   password: String;
   phone: String;
-  dob: Date;
-  city: String;
-  country: String;
+  city: {
+    lati: Number,
+    longi: Number
+  };
   category: String;
   role:String;
   uid: String;

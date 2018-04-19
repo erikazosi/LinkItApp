@@ -64,6 +64,7 @@ export class AppHeaderComponent {
 
   logout() {
     this.as.logout();
+    this.isLoggedIn = false;
     this.router.navigate(['/login']);
   }
 

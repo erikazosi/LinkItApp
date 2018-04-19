@@ -1,8 +1,16 @@
 <div class="search-wrapper">
+
   <div class="input-group">
-    <select [(ngModel)]="searchWord" class="form-control form-control-sm"
+    <div *ngIf="categoryLoaded">
+    <i  class="fa fa-spinner fa-lg mt-4 fa-spin"></i><br>
+      category loading...
+    </div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <select [(ngModel)]="searchWord" class="form-control form-control-sm round"
             placeholder="Which Service are you look for..." aria-label="Search for...">
-      <option *ngFor="let cat of categories" value="{{cat}}">{{cat}}</option>
+
+      <option class="option"*ngFor="let cat of categories" value="{{cat}}">{{cat}}</option>
+
     </select>
     <!--<input type="text" [(ngModel)]="searchWord"-->
     <!--style="height:50px;border-top-left-radius: 10px;border-bottom-left-radius: 10px;"-->

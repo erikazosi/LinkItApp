@@ -44,6 +44,7 @@ export class ProfileComponent implements OnInit {
   message: String = '';
   items: any;
   check: any;
+  description: any;
   msgTitle: String;
   allComments = [];
   loginStatus: String;
@@ -53,10 +54,32 @@ export class ProfileComponent implements OnInit {
   note: any;
   'additionalFile': '';
   contactWay: String;
-  scheduleTime: String;
+  single: any[];
+  showAllRating: Boolean = false;
+  view: any[] = [200, 150];
 
+  // options
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showXAxisLabel = false;
+  xAxisLabel = 'Country';
+  showYAxisLabel = false;
+  yAxisLabel = 'Population';
+  xScaleMax = 100;
+  barPadding = 3;
+  address: any;
+  rated: Boolean = false;
+  colorScheme = {
+    domain: ['#d5aa4f']
+  };
+  lati: number;
+  longi: number;
+  place: any;
+  map: google.maps.Map;
   averageRating: number;
-  allRatings = [];
+
+  public zoom: number;
 
   constructor(private route: ActivatedRoute, public router: Router,
               private modalService: BsModalService,
@@ -73,14 +96,23 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  onSelect(event) {
+    console.log(event);
+  }
+
   ngOnInit() {
+    this.zoom = 8;
+
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
+      this.getAllRatings(this.id);
 
 
     })
     this.fetchUserDataByKey(this.id);
+
     this.getAllComments(this.id);
+
     // this.getAverageRating(this.id);
   }
 
@@ -88,16 +120,21 @@ export class ProfileComponent implements OnInit {
     var ref = this.userSvc.fetchUserDataByKey(key);
     ref.on('child_added', (function (snap) {
         var data = snap.val();
-
         if (key == snap.key) {
           this.user.firstName = data.firstName;
           this.user.lastName = data.lastName;
-          this.user.city = data.city;
+          this.lati = data.city.lati;
+          this.longi = data.city.longi;
+          this.address = data.city.fullAddress;
+
           this.user.photoUrl = data.photoUrl;
-          this.user.phoneNumber = data.phoneNumber;
+          this.user.phone = data.phone;
           this.proKey = snap.key;
           this.uid = data.uid;
+          this.description = data.description
         }
+        this.getRatingOfCurrentUser();
+
       }
     ).bind(this));
   }
@@ -158,16 +195,41 @@ export class ProfileComponent implements OnInit {
     // location.reload();
   }
 
+  getRatingOfCurrentUser() {
+    var currentUser = firebase.auth().currentUser.uid;
+    var ref = firebase.database().ref('rating/');
+    ref.orderByChild('ratedBy').equalTo(currentUser).on('child_added', (function (res) {
+      this.rating = res.val().rate;
+
+    }).bind(this))
+  }
+
   makeRating() {
     //https://github.com/MurhafSousli/ngx-bar-rating
-    const rate = this.db.list('/rating');
     var currentUser = firebase.auth().currentUser.uid;
-    rate.push({
-      'rate': this.rating,
-      'ratedBy': currentUser,
-      'rateFor': this.id,
-      'date': Date.now()
-    });
+
+    var ref = firebase.database().ref('/rating');
+    ref.orderByChild('ratedBy').equalTo(currentUser).on('child_added', (function (res) {
+      if (res.exists()) {
+        ref.child(res.key).update({
+          'rate': this.rating
+        })
+
+      }
+      this.rated = true;
+
+    }).bind(this))
+    if (!this.rated) {
+      const rate = this.db.list('/rating');
+      rate.push({
+        'rate': this.rating,
+        'ratedBy': currentUser,
+        'rateFor': this.id,
+        'date': Date.now()
+      });
+    }
+
+
   }
 
   getAllComments(id) {
@@ -290,4 +352,51 @@ export class ProfileComponent implements OnInit {
 //   }).bind(this));
 //
 // }
+  private getAllRatings(id) {
+    var oneStar = 0;
+    var twoStar = 0;
+    var threeStar = 0;
+    var fourStar = 0;
+    var fiveStar = 0;
+    var ref = firebase.database().ref('rating').orderByChild('rateFor').equalTo(id).on('value', (function (res) {
+      res.forEach(function (snapShot) {
+        if (snapShot.val().rate == 1) {
+          oneStar++;
+        } else if (snapShot.val().rate == 2) {
+          twoStar++;
+        } else if (snapShot.val().rate == 3) {
+          threeStar++;
+        } else if (snapShot.val().rate == 4) {
+          fourStar++;
+        } else if (snapShot.val().rate == 5) {
+          fiveStar++;
+        }
+      })
+      this.single = [
+        {
+          'name': '5 Star',
+          'value': fiveStar
+        },
+        {
+          'name': '4 Star',
+          'value': fourStar
+        },
+        {
+          'name': '3 Star',
+          'value': threeStar
+        },
+        {
+          'name': '2 Star',
+          'value': twoStar
+        },
+        {
+          'name': '1 Star',
+          'value': oneStar
+        }
+      ];
+      this.averageRating = (oneStar + twoStar + threeStar + fourStar + fiveStar) / 5;
+    }).bind(this))
+  }
+
+
 }

@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import * as firebase from 'firebase/app';
 import {User} from '../../model/user/user.model';
 import {UserService} from '../../model/user/user.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -17,29 +17,46 @@ export class SignupComponent implements OnInit {
   firstName: String;
   lastName: String;
   currentUser = firebase.auth().currentUser;
-  singupForm: FormGroup;
-
-
+  signupForm: FormGroup;
+  email: String = '';
+  password: String = '';
+  confirmPassword: String = '';
   user: User = new User();
 
   ngOnInit(): void {
+
+
   }
-
-  email: String;
-  password: String;
-  repPassword: String;
-
   warning = false;
   errorMessage: String;
 
 
-  constructor(public as: AuthService, public router: Router) {
+  constructor(public as: AuthService, public router: Router, private form: FormBuilder) {
     //check whether user is logged in
     var currentUser = firebase.auth().currentUser;
     if (firebase.auth().currentUser) {
       this.router.navigate(['']);
     }
-
+    this.signupForm = form.group({
+      'firstName': [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z]+$')])],
+      'lastName': [null, Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z]+$')])],
+      'email': [null, Validators.compose([Validators.required,Validators.pattern('^[a-z0-9]+(\\.[_a-z0-9]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,15})$')])],
+      'password': [null, Validators.required],
+      'confirmPassword': [null, Validators.required],
+      'validate': ''
+    },{validator: this.checkIfMatchingPasswords('password', 'confirmPassword')});
+  }
+  checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    return (group: FormGroup) => {
+      let passwordInput = group.controls[passwordKey],
+        passwordConfirmationInput = group.controls[passwordConfirmationKey];
+      if (passwordInput.value !== passwordConfirmationInput.value) {
+        return passwordConfirmationInput.setErrors({notEquivalent: true})
+      }
+      else {
+        return passwordConfirmationInput.setErrors(null);
+      }
+    }
   }
 
 
